@@ -1,0 +1,176 @@
+/* =========================================================
+   Header + Tabs
+   ========================================================= */
+
+.rf-header { position: relative; z-index: 20; }
+
+.rf-header-top {
+  display: grid;
+  grid-template-columns: 110px 1fr 110px;
+  align-items: center;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  box-shadow: 0 10px 22px var(--shadow);
+}
+
+.rf-brand {
+  text-align: center;
+  padding: 14px 10px 10px;
+}
+
+.rf-kicker {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.1;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.rf-logo {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: .06em;
+  text-decoration: none;
+  color: var(--ink);
+  position: relative;
+  padding: 0 10px;
+  text-transform: uppercase;
+}
+
+.rf-logo::after {
+  content: "";
+  position: absolute;
+  inset: 8px 8px 6px 8px;
+  background: linear-gradient(180deg, rgba(242,195,74,.95), rgba(225,169,58,.92));
+  z-index: -1;
+  opacity: .85;
+  border: 2px solid var(--rule);
+  transform: skewX(-6deg);
+}
+
+.rf-sticker {
+  height: 100%;
+  border-right: 2px solid var(--rule);
+}
+.rf-sticker-right { border-right: 0; border-left: 2px solid var(--rule); }
+
+.rf-sticker::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 88px;
+  background:
+    radial-gradient(circle at 35% 40%, rgba(0,0,0,.18) 0 6px, transparent 7px),
+    radial-gradient(circle at 65% 40%, rgba(0,0,0,.18) 0 6px, transparent 7px),
+    radial-gradient(circle at 50% 70%, rgba(0,0,0,.18) 0 10px, transparent 11px),
+    repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 2px, transparent 2px 6px),
+    var(--paper2);
+}
+
+/* =========================================================
+   Header tabs — desktop strip should match panel rules
+   ========================================================= */
+
+.rf-nav {
+  background: var(--paper2);
+
+  /* same weight as panels */
+  border-left: 2px solid var(--rule);
+  border-right: 2px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  border-top: 0; /* attaches to .rf-header-top */
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  position: relative;
+}
+
+/* tabs: real separators, not hairlines */
+.rf-tab {
+  padding: 12px 8px;
+  text-align: center;
+
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+
+  text-decoration: none;
+  color: var(--ink);
+
+  background: transparent;
+  border: 0;
+
+  /* use a real 2px divider that matches the theme */
+  border-right: 2px solid var(--rule);
+
+  /* tiny “ink” lift to match the paper feel */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+.rf-tab:last-child { border-right: 0; }
+
+/* hover: looks like paper darkening, not a modern button */
+.rf-tab:hover { background: rgba(0,0,0,.035); }
+
+/* =========================================================
+   Responsive: mobile nav toggle + open/close state
+   ========================================================= */
+
+.rf-nav-toggle {
+  display: none;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-top: 0;
+  background: var(--paper2);
+  color: var(--ink);
+  cursor: pointer;
+
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+
+  box-shadow: 0 6px 14px var(--shadow);
+}
+
+@media (max-width: 560px) {
+  .rf-nav-toggle { display: block; }
+
+  /* make sure these sit above the frame content */
+  .rf-nav-toggle { position: relative; z-index: 30; }
+  .rf-nav { position: relative; z-index: 25; }
+
+  /* nav is CLOSED by default on mobile */
+  .rf-nav {
+    display: none !important;
+    border-left: 2px solid var(--rule);
+    border-right: 2px solid var(--rule);
+    border-bottom: 2px solid var(--rule);
+    border-top: 0;
+    background: var(--paper2);
+    overflow: visible;
+  }
+
+  /* open state */
+  .rf-nav.is-open { display: block !important; }
+
+  .rf-tab {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 2px solid var(--rule);
+  }
+  .rf-tab:last-child { border-bottom: 0; }
+}

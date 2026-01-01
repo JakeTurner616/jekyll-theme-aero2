@@ -1,0 +1,10 @@
+- label: HOME
+  href: /
+- label: SANDWICHES
+  href: /sandwitches/
+- label: LOCATION
+  href: /location/
+- label: CRAFT BEER
+  href: /beer/
+- label: CONTACT
+  href: /contact/

@@ -1,0 +1,81 @@
+/* =========================================================
+   Article typography
+   ========================================================= */
+
+.rf-h1 {
+  margin: 0 0 10px;
+  font-weight: 1000;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.rf-prose {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(17,17,17,.9);
+  max-width: 62ch;
+}
+
+.rf-prose p { margin: 0 0 12px; }
+.rf-prose a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; }
+
+.rf-muted { color: var(--muted); }
+
+/* =========================================================
+   Post header chrome
+   ========================================================= */
+
+.rf-posthead { margin: 0 0 12px; }
+
+.rf-byline {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.rf-author {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.rf-sep {
+  margin-top: 12px;
+  height: 0;
+  border-top: 2px solid var(--rule);
+}
+
+/* =========================================================
+   Monospace overrides (intentional)
+   ========================================================= */
+
+.rf-prose code,
+.rf-prose pre,
+.highlight pre {
+  font-family: var(--font-mono);
+}
+
+.rf-meta,
+.rf-cal,
+.rf-rail-kicker {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.rf-tab {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: .12em;
+}

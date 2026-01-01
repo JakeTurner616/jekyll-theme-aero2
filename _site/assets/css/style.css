@@ -1,0 +1,793 @@
+@charset "UTF-8";
+/* base (optional — keep if you want small resets/utilities from aero2.scss) */
+/* =========================================================
+   Aero2 base — minimal reset/utilities only
+   (visual theming is handled by retrofood.scss)
+   ========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+/* retro newspaper/menu UI */
+html {
+  min-width: 350px;
+}
+
+body {
+  min-width: 350px;
+  overflow-x: auto;
+}
+
+/* =========================================================
+   Retro Food / Newspaper Menu UI
+   ========================================================= */
+.rf {
+  /* =====================================================
+     Fonts
+     ===================================================== */
+  /* Primary font — used for body, UI, headings, nav */
+  --font-main: "Source Sans 3",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+  /* Monospace — code, metadata, technical accents */
+  --font-mono: "IBM Plex Mono",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  /* existing vars */
+  --ink: #111;
+  --paper: #f2f0ea;
+  --paper2: #fbfaf6;
+  --rule: #121212;
+  --muted: rgba(17,17,17,.68);
+  --shadow: rgba(0,0,0,.18);
+  --accent: #f2c34a;
+  --accent2: #e1a93a;
+  font-family: var(--font-main);
+}
+
+/* Paper texture (no image needed) */
+.rf-bg {
+  min-height: 100vh;
+  background: radial-gradient(1200px 900px at 20% 15%, rgba(0, 0, 0, 0.03), transparent 55%), radial-gradient(900px 700px at 80% 30%, rgba(0, 0, 0, 0.025), transparent 55%), repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.02) 0 1px, transparent 1px 6px), radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.04) 0 1px, transparent 2px), radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.035) 0 1px, transparent 2px), var(--paper);
+  padding: 28px 14px 60px;
+}
+
+.rf-shell {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   Frame + Grid
+   ========================================================= */
+.rf-frame {
+  background: var(--paper2);
+  border: 2px solid var(--rule);
+  box-shadow: 0 14px 40px var(--shadow);
+  position: relative;
+}
+
+.rf-frame::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid var(--rule);
+  pointer-events: none;
+}
+
+.rf-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 0;
+  position: relative;
+  padding: 18px;
+}
+
+.rf-main {
+  padding: 10px 16px 18px;
+  border-right: 2px solid var(--rule);
+  position: relative;
+}
+
+.rf-side {
+  padding: 10px 14px 18px;
+}
+
+/* =========================================================
+   Header + Tabs
+   ========================================================= */
+.rf-header {
+  position: relative;
+  z-index: 20;
+}
+
+.rf-header-top {
+  display: grid;
+  grid-template-columns: 110px 1fr 110px;
+  align-items: center;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  box-shadow: 0 10px 22px var(--shadow);
+}
+
+.rf-brand {
+  text-align: center;
+  padding: 14px 10px 10px;
+}
+
+.rf-kicker {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.rf-logo {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--ink);
+  position: relative;
+  padding: 0 10px;
+  text-transform: uppercase;
+}
+
+.rf-logo::after {
+  content: "";
+  position: absolute;
+  inset: 8px 8px 6px 8px;
+  background: linear-gradient(180deg, rgba(242, 195, 74, 0.95), rgba(225, 169, 58, 0.92));
+  z-index: -1;
+  opacity: 0.85;
+  border: 2px solid var(--rule);
+  transform: skewX(-6deg);
+}
+
+.rf-sticker {
+  height: 100%;
+  border-right: 2px solid var(--rule);
+}
+
+.rf-sticker-right {
+  border-right: 0;
+  border-left: 2px solid var(--rule);
+}
+
+.rf-sticker::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 88px;
+  background: radial-gradient(circle at 35% 40%, rgba(0, 0, 0, 0.18) 0 6px, transparent 7px), radial-gradient(circle at 65% 40%, rgba(0, 0, 0, 0.18) 0 6px, transparent 7px), radial-gradient(circle at 50% 70%, rgba(0, 0, 0, 0.18) 0 10px, transparent 11px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.06) 0 2px, transparent 2px 6px), var(--paper2);
+}
+
+/* =========================================================
+   Header tabs — desktop strip should match panel rules
+   ========================================================= */
+.rf-nav {
+  background: var(--paper2);
+  /* same weight as panels */
+  border-left: 2px solid var(--rule);
+  border-right: 2px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  border-top: 0; /* attaches to .rf-header-top */
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  position: relative;
+}
+
+/* tabs: real separators, not hairlines */
+.rf-tab {
+  padding: 12px 8px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  /* use a real 2px divider that matches the theme */
+  border-right: 2px solid var(--rule);
+  /* tiny “ink” lift to match the paper feel */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.rf-tab:last-child {
+  border-right: 0;
+}
+
+/* hover: looks like paper darkening, not a modern button */
+.rf-tab:hover {
+  background: rgba(0, 0, 0, 0.035);
+}
+
+/* =========================================================
+   Responsive: mobile nav toggle + open/close state
+   ========================================================= */
+.rf-nav-toggle {
+  display: none;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-top: 0;
+  background: var(--paper2);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 14px var(--shadow);
+}
+
+@media (max-width: 560px) {
+  .rf-nav-toggle {
+    display: block;
+  }
+  /* make sure these sit above the frame content */
+  .rf-nav-toggle {
+    position: relative;
+    z-index: 30;
+  }
+  .rf-nav {
+    position: relative;
+    z-index: 25;
+  }
+  /* nav is CLOSED by default on mobile */
+  .rf-nav {
+    display: none !important;
+    border-left: 2px solid var(--rule);
+    border-right: 2px solid var(--rule);
+    border-bottom: 2px solid var(--rule);
+    border-top: 0;
+    background: var(--paper2);
+    overflow: visible;
+  }
+  /* open state */
+  .rf-nav.is-open {
+    display: block !important;
+  }
+  .rf-tab {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 2px solid var(--rule);
+  }
+  .rf-tab:last-child {
+    border-bottom: 0;
+  }
+}
+/* =========================================================
+   Article typography
+   ========================================================= */
+.rf-h1 {
+  margin: 0 0 10px;
+  font-weight: 1000;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.rf-prose {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(17, 17, 17, 0.9);
+  max-width: 62ch;
+}
+
+.rf-prose p {
+  margin: 0 0 12px;
+}
+
+.rf-prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.rf-muted {
+  color: var(--muted);
+}
+
+/* =========================================================
+   Post header chrome
+   ========================================================= */
+.rf-posthead {
+  margin: 0 0 12px;
+}
+
+.rf-byline {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.rf-author {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.rf-sep {
+  margin-top: 12px;
+  height: 0;
+  border-top: 2px solid var(--rule);
+}
+
+/* =========================================================
+   Monospace overrides (intentional)
+   ========================================================= */
+.rf-prose code,
+.rf-prose pre,
+.highlight pre {
+  font-family: var(--font-mono);
+}
+
+.rf-meta,
+.rf-cal,
+.rf-rail-kicker {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.rf-tab {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   Sidebar cards (menu items)
+   ========================================================= */
+.rf-card {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  margin: 0 0 12px;
+}
+
+.rf-card-head {
+  padding: 10px 10px 6px;
+  border-bottom: 2px solid var(--rule);
+}
+
+.rf-card-head h3 {
+  margin: 0;
+  font-weight: 1000;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rf-cal {
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.rf-card-body {
+  padding: 10px;
+  min-height: 128px;
+  display: grid;
+  place-items: center;
+}
+
+.rf-illu {
+  width: 96px;
+  height: 96px;
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 40%, rgba(0, 0, 0, 0.16) 0 7px, transparent 8px), radial-gradient(circle at 65% 40%, rgba(0, 0, 0, 0.16) 0 7px, transparent 8px), radial-gradient(circle at 50% 63%, rgba(0, 0, 0, 0.16) 0 12px, transparent 13px), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0 2px, transparent 2px 7px), #fff;
+}
+
+.rf-illu-waffle {
+  border-radius: 20px;
+}
+
+.rf-illu-ice {
+  border-radius: 28px 28px 999px 999px;
+}
+
+.rf-pricebar {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  border-top: 2px solid var(--rule);
+  align-items: center;
+}
+
+.rf-price {
+  padding: 10px 10px;
+  font-weight: 1000;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.rf-arrow {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  border-left: 2px solid var(--rule);
+  text-decoration: none;
+}
+
+.rf-arrow::before {
+  content: "↗";
+  font-weight: 1000;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* =========================================================
+   Sidebar rail (blog)
+   ========================================================= */
+.rf-rail-head {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  margin: 0 0 12px;
+  padding: 10px 10px 8px;
+}
+
+.rf-rail-kicker {
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rf-rail-title {
+  margin: 6px 0 0;
+  font-weight: 1000;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rf-card--post .rf-card-head h3 {
+  font-size: 18px;
+}
+
+.rf-card-title a {
+  text-decoration: none;
+}
+
+.rf-card-title a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.rf-meta {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.rf-dot {
+  opacity: 0.7;
+}
+
+.rf-cat {
+  opacity: 0.9;
+}
+
+.rf-card-body--post {
+  min-height: auto;
+  display: block;
+}
+
+.rf-excerpt {
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(17, 17, 17, 0.88);
+}
+
+.rf-rail-more {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  padding: 10px;
+}
+
+.rf-morelink {
+  font-weight: 1000;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.rf-footer {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 22px var(--shadow);
+}
+
+/* =========================================================
+   Rouge syntax highlighting (ink on paper)
+   ========================================================= */
+.highlight {
+  margin: 14px 0;
+  border: 2px solid var(--rule);
+  background: #f7f5ef;
+  overflow: auto;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 12px 14px;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+
+/* inline code (not inside a code block) */
+.rf-prose code:not(pre code) {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 0.15em 0.35em;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
+/* Rouge tokens */
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
+  color: #6b6b6b;
+  font-style: italic;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr {
+  color: #000;
+  font-weight: 700;
+}
+
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s2,
+.highlight .sh,
+.highlight .si,
+.highlight .sx {
+  color: #8b1e1e;
+}
+
+.highlight .nf {
+  color: #003366;
+  font-weight: 600;
+}
+
+.highlight .nt {
+  color: #004b3a;
+  font-weight: 700;
+}
+
+.highlight .na {
+  color: #5a2e00;
+}
+
+.highlight .m,
+.highlight .mi,
+.highlight .mf {
+  color: #7a5200;
+}
+
+.highlight ::selection {
+  background: rgba(242, 195, 74, 0.6);
+}
+
+/* =========================================================
+   Alerts (Chirpy-like callouts via kramdown attribute lists)
+   Usage:
+   > Title
+   > Body...
+   {: .alert .alert-tip}
+   ========================================================= */
+:root .rf {
+  --a-tip: #1f7a5a;
+  --a-info: #1b5f9e;
+  --a-warn: #9a6a00;
+  --a-danger: #a32727;
+}
+
+/* Base */
+.rf-prose .alert {
+  margin: 14px 0;
+  padding: 10px 12px;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  position: relative;
+}
+
+/* left ink bar + subtle tint */
+.rf-prose .alert::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  bottom: -2px;
+  width: 8px;
+  background: var(--a-info);
+  border-right: 2px solid var(--rule);
+}
+
+/* Title row (optional) */
+.rf-prose .alert > :first-child {
+  margin-top: 0;
+}
+
+.rf-prose .alert > :last-child {
+  margin-bottom: 0;
+}
+
+/* Small-caps header feel if you start with **TIP** etc */
+.rf-prose .alert strong:first-child {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 1000;
+}
+
+/* Type variants */
+.rf-prose .alert-tip::before {
+  background: var(--a-tip);
+}
+
+.rf-prose .alert-info::before {
+  background: var(--a-info);
+}
+
+.rf-prose .alert-warning::before {
+  background: var(--a-warn);
+}
+
+.rf-prose .alert-danger::before {
+  background: var(--a-danger);
+}
+
+/* Optional: tiny icon stamp using CSS only */
+.rf-prose .alert::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-weight: 1000;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.65);
+}
+
+/* =========================================================
+   Responsive layout: stack main + sidebar
+   Sidebar becomes centered bottom section
+   ========================================================= */
+@media (max-width: 820px) {
+  /* stack columns */
+  .rf-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 14px;
+  }
+  /* main becomes full width (remove desktop divider) */
+  .rf-main {
+    border-right: 0;
+    padding: 10px 12px 14px;
+  }
+  /* sidebar becomes a bottom section, centered */
+  .rf-side {
+    padding: 0;
+    margin-top: 2px;
+    /* “bottom module” separation */
+    border-top: 2px solid var(--rule);
+    padding-top: 14px;
+  }
+  /* center rail + cards, cap width so it feels intentional */
+  .rf-rail-head,
+  .rf-rail-more,
+  .rf-side .rf-card {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rf-rail-head {
+    margin-top: 0;
+  }
+}
+/* phones: allow full width so it doesn't feel cramped */
+@media (max-width: 520px) {
+  .rf-rail-head,
+  .rf-rail-more,
+  .rf-side .rf-card {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

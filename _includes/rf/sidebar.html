@@ -1,0 +1,46 @@
+{% assign max_items = page.sidebar_limit | default: 4 %}
+
+<section class="rf-rail">
+  <div class="rf-rail-head">
+    <div class="rf-rail-kicker">{{ site.sidebar_kicker | default: "LATEST" }}</div>
+    <h2 class="rf-rail-title">{{ site.sidebar_title | default: "Recent Posts" }}</h2>
+  </div>
+
+  {% for post in site.posts limit:max_items %}
+    <article class="rf-card rf-card--post">
+      <header class="rf-card-head">
+        <h3 class="rf-card-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+
+        <div class="rf-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%b %-d, %Y" }}
+          </time>
+
+          {% if post.categories and post.categories.size > 0 %}
+            <span class="rf-dot">•</span>
+            <span class="rf-cat">{{ post.categories[0] }}</span>
+          {% endif %}
+        </div>
+      </header>
+
+      <div class="rf-card-body rf-card-body--post">
+        <p class="rf-excerpt">
+          {{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}
+        </p>
+      </div>
+
+      <div class="rf-pricebar">
+        <div class="rf-price">READ</div>
+        <a class="rf-arrow" href="{{ post.url | relative_url }}" aria-label="Read post"></a>
+      </div>
+    </article>
+  {% endfor %}
+
+  {% if site.posts.size > max_items %}
+    <div class="rf-rail-more">
+      <a class="rf-morelink" href="{{ '/blog/' | relative_url }}">View all posts</a>
+    </div>
+  {% endif %}
+</section>

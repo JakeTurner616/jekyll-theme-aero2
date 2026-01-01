@@ -1,0 +1,62 @@
+/* =========================================================
+   Rouge syntax highlighting (ink on paper)
+   ========================================================= */
+
+.highlight {
+  margin: 14px 0;
+  border: 2px solid var(--rule);
+  background: #f7f5ef;
+  overflow: auto;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 12px 14px;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+
+/* inline code (not inside a code block) */
+.rf-prose code:not(pre code) {
+  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(0,0,0,.25);
+  padding: 0.15em 0.35em;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
+/* Rouge tokens */
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs { color: #6b6b6b; font-style: italic; }
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr { color: #000; font-weight: 700; }
+
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s2,
+.highlight .sh,
+.highlight .si,
+.highlight .sx { color: #8b1e1e; }
+
+.highlight .nf { color: #003366; font-weight: 600; }
+.highlight .nt { color: #004b3a; font-weight: 700; }
+.highlight .na { color: #5a2e00; }
+
+.highlight .m,
+.highlight .mi,
+.highlight .mf { color: #7a5200; }
+
+.highlight ::selection { background: rgba(242,195,74,.6); }

@@ -1,0 +1,54 @@
+/* Paper texture (no image needed) */
+.rf-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 900px at 20% 15%, rgba(0,0,0,.03), transparent 55%),
+    radial-gradient(900px 700px at 80% 30%, rgba(0,0,0,.025), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,.02) 0 1px, transparent 1px 6px),
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.035) 0 1px, transparent 2px),
+    var(--paper);
+  padding: 28px 14px 60px;
+}
+
+.rf-shell {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   Frame + Grid
+   ========================================================= */
+
+.rf-frame {
+  background: var(--paper2);
+  border: 2px solid var(--rule);
+  box-shadow: 0 14px 40px var(--shadow);
+  position: relative;
+}
+
+.rf-frame::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid var(--rule);
+  pointer-events: none;
+}
+
+.rf-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 0;
+  position: relative;
+  padding: 18px;
+}
+
+.rf-main {
+  padding: 10px 16px 18px;
+  border-right: 2px solid var(--rule);
+  position: relative;
+}
+
+.rf-side {
+  padding: 10px 14px 18px;
+}

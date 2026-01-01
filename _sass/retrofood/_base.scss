@@ -1,0 +1,44 @@
+html { min-width: 350px; }
+
+body {
+  min-width: 350px;
+  overflow-x: auto;
+}
+
+/* =========================================================
+   Retro Food / Newspaper Menu UI
+   ========================================================= */
+.rf {
+  /* =====================================================
+     Fonts
+     ===================================================== */
+
+  /* Primary font — used for body, UI, headings, nav */
+  --font-main: "Source Sans 3",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+
+  /* Monospace — code, metadata, technical accents */
+  --font-mono: "IBM Plex Mono",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+
+  /* existing vars */
+  --ink: #111;
+  --paper: #f2f0ea;
+  --paper2: #fbfaf6;
+  --rule: #121212;
+  --muted: rgba(17,17,17,.68);
+  --shadow: rgba(0,0,0,.18);
+  --accent: #f2c34a;
+  --accent2: #e1a93a;
+
+  font-family: var(--font-main);
+}

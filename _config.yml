@@ -1,0 +1,41 @@
+title: Aero2
+description: A fresh Jekyll theme starter
+tagline: Craft Beer & Fine Food
+
+url: ""
+baseurl: ""
+
+theme: jekyll-theme-aero2
+
+plugins:
+  - jekyll-seo-tag
+
+# -------------------------------------------------
+# Defaults
+# -------------------------------------------------
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: retro
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: retro
+
+# -------------------------------------------------
+# Basics
+# -------------------------------------------------
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# -------------------------------------------------
+# Kramdown + Rouge
+# -------------------------------------------------
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight

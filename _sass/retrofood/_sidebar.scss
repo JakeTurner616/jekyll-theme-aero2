@@ -1,0 +1,168 @@
+/* =========================================================
+   Sidebar cards (menu items)
+   ========================================================= */
+
+.rf-card {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  margin: 0 0 12px;
+}
+
+.rf-card-head {
+  padding: 10px 10px 6px;
+  border-bottom: 2px solid var(--rule);
+}
+
+.rf-card-head h3 {
+  margin: 0;
+  font-weight: 1000;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.rf-cal {
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.rf-card-body {
+  padding: 10px;
+  min-height: 128px;
+  display: grid;
+  place-items: center;
+}
+
+.rf-illu {
+  width: 96px;
+  height: 96px;
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 40%, rgba(0,0,0,.16) 0 7px, transparent 8px),
+    radial-gradient(circle at 65% 40%, rgba(0,0,0,.16) 0 7px, transparent 8px),
+    radial-gradient(circle at 50% 63%, rgba(0,0,0,.16) 0 12px, transparent 13px),
+    repeating-linear-gradient(135deg, rgba(0,0,0,.05) 0 2px, transparent 2px 7px),
+    #fff;
+}
+.rf-illu-waffle { border-radius: 20px; }
+.rf-illu-ice { border-radius: 28px 28px 999px 999px; }
+
+.rf-pricebar {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  border-top: 2px solid var(--rule);
+  align-items: center;
+}
+
+.rf-price {
+  padding: 10px 10px;
+  font-weight: 1000;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: .04em;
+}
+
+.rf-arrow {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  border-left: 2px solid var(--rule);
+  text-decoration: none;
+}
+.rf-arrow::before {
+  content: "↗";
+  font-weight: 1000;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* =========================================================
+   Sidebar rail (blog)
+   ========================================================= */
+
+.rf-rail-head {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  margin: 0 0 12px;
+  padding: 10px 10px 8px;
+}
+
+.rf-rail-kicker {
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rf-rail-title {
+  margin: 6px 0 0;
+  font-weight: 1000;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.rf-card--post .rf-card-head h3 { font-size: 18px; }
+
+.rf-card-title a { text-decoration: none; }
+.rf-card-title a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.rf-meta {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.rf-dot { opacity: .7; }
+.rf-cat { opacity: .9; }
+
+.rf-card-body--post {
+  min-height: auto;
+  display: block;
+}
+
+.rf-excerpt {
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(17,17,17,.88);
+}
+
+.rf-rail-more {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  padding: 10px;
+}
+
+.rf-morelink {
+  font-weight: 1000;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}

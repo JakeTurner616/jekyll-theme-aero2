@@ -1,0 +1,15 @@
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.rf-footer {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 22px var(--shadow);
+}

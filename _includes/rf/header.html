@@ -1,0 +1,29 @@
+<!-- _includes/rf/header.html -->
+<header class="rf-header">
+  <div class="rf-header-top">
+    <!-- removed right-side sticker image -->
+    <div class="rf-sticker rf-sticker-left" aria-hidden="true"></div>
+
+    <div class="rf-brand">
+      <div class="rf-kicker">{{ site.tagline | default: "CRAFT BEER &amp; FINE FOOD" }}</div>
+      <a class="rf-logo" href="{{ '/' | relative_url }}">
+        {{ site.title | default: "RETRO FOOD" }}
+      </a>
+    </div>
+  </div>
+
+  <nav class="rf-nav" aria-label="Primary">
+    {% assign items = site.data.nav | default: nil %}
+    {% if items %}
+      {% for item in items %}
+        <a class="rf-tab" href="{{ item.href | relative_url }}">{{ item.label }}</a>
+      {% endfor %}
+    {% else %}
+      <a class="rf-tab" href="{{ '/' | relative_url }}">HOME</a>
+      <a class="rf-tab" href="{{ '/menu/' | relative_url }}">MENU</a>
+      <a class="rf-tab" href="{{ '/location/' | relative_url }}">LOCATION</a>
+      <a class="rf-tab" href="{{ '/beer/' | relative_url }}">CRAFT BEER</a>
+      <a class="rf-tab" href="{{ '/contact/' | relative_url }}">CONTACT</a>
+    {% endif %}
+  </nav>
+</header>

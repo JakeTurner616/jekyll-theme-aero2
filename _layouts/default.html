@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% include head-custom.html %}
+</head>
+
+<body class="rf">
+  <div class="rf-bg">
+    <div class="rf-shell">
+      {% include rf/header.html %}
+
+      <div class="rf-frame">
+        <div class="rf-grid">
+          <main class="rf-main">
+            <article class="rf-article">
+              {% if page.title %}
+                <header class="rf-posthead">
+                  <h1 class="rf-h1">{{ page.title }}</h1>
+
+                  {% if page.layout == "post" %}
+                    <div class="rf-byline">
+                      <time class="rf-date" datetime="{{ page.date | date_to_xmlschema }}">
+                        {{ page.date | date: "%B %-d, %Y" }}
+                      </time>
+
+                      {% if page.author %}
+                        <span class="rf-dot">•</span>
+                        {% assign author_label = page.author.name | default: page.author %}
+                        {% assign author_url = page.author.url | default: site.author_url | default: "/contact/" %}
+                        <a class="rf-author" href="{{ author_url | relative_url }}">{{ author_label }}</a>
+                      {% endif %}
+                    </div>
+
+                    <div class="rf-sep" aria-hidden="true"></div>
+                  {% endif %}
+                </header>
+              {% endif %}
+
+              <div class="rf-prose">
+                {{ content }}
+              </div>
+            </article>
+          </main>
+
+          <aside class="rf-side">
+            {% if page.sidebar %}
+              {{ page.sidebar }}
+            {% else %}
+              {% include rf/sidebar.html %}
+            {% endif %}
+          </aside>
+        </div>
+      </div>
+
+      {% include rf/footer.html %}
+    </div>
+  </div>
+
+  <!-- Scripts: jQuery MUST load before aero2.js -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="{{ '/assets/js/aero2.js' | relative_url }}"></script>
+</body>
+</html>
