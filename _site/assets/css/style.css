@@ -115,6 +115,11 @@ body {
 
 .rf-side {
   padding: 10px 14px 18px;
+  /* KEY: make the whole sidebar a sticky "column" */
+  position: sticky;
+  top: 16px;
+  /* KEY: constrain sidebar height so internal stacking can work */
+  max-height: calc(100dvh - 32px);
 }
 
 /* =========================================================
@@ -565,6 +570,55 @@ body {
 }
 
 /* =========================================================
+   Sidebar stack: TOC on top, Latest below, TOC list scrolls
+   ========================================================= */
+.rf-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* KEY: allow internal scroll sizing inside constrained sticky sidebar */
+  min-height: 0;
+  height: 100%;
+}
+
+/* Latest sits naturally below; it should never be overlapped */
+.rf-rail--latest {
+  flex: 0 0 auto;
+}
+
+/* The TOC block is allowed to shrink to make room for Latest */
+.rf-side-stack .rf-toc {
+  flex: 1 1 auto;
+  min-height: 0; /* allows its list to scroll instead of forcing overflow */
+}
+
+/* =========================================================
+   Sidebar stack scroll safety (TOC scrolls under zoom)
+   ========================================================= */
+.rf-side {
+  /* sidebar is the sticky container in desktop layout */
+  position: sticky;
+  top: 16px;
+  /* cap sidebar height so internal scroll can engage */
+  max-height: calc(100dvh - 32px);
+}
+
+/* stack must be allowed to shrink */
+.rf-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+}
+
+/* TOC block may shrink so Latest can remain visible */
+.rf-side-stack .rf-toc {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* =========================================================
    Footer
    ========================================================= */
 .rf-footer {
@@ -768,6 +822,10 @@ body {
     /* “bottom module” separation */
     border-top: 2px solid var(--rule);
     padding-top: 14px;
+    /* sticky off on small screens */
+    position: static;
+    top: auto;
+    max-height: none;
   }
   /* center rail + cards, cap width so it feels intentional */
   .rf-rail-head,
@@ -787,6 +845,106 @@ body {
   .rf-rail-more,
   .rf-side .rf-card {
     max-width: 100%;
+  }
+}
+/* =========================================================
+   TOC (sidebar + article) — compact, newspaper-themed
+   ========================================================= */
+.rf-toc {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  /* KEY: make TOC a column so the list can be the scroll region */
+  display: flex;
+  flex-direction: column;
+  /* hard stop: never paint outside */
+  overflow: hidden;
+}
+
+/* Header mirrors the rail header, but slimmer */
+.rf-toc-head {
+  padding: 8px 10px 7px;
+  border-bottom: 2px solid var(--rule);
+  flex: 0 0 auto;
+}
+
+.rf-toc-kicker {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Tight list — minimal vertical footprint */
+.rf-toc-list {
+  margin: 0;
+  padding: 8px 10px 10px;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  /* KEY: list becomes the scrollable flex child */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+
+/* Link rows: compact + underline rule */
+.rf-toc-item a {
+  display: block;
+  min-width: 0;
+  padding: 4px 2px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  /* allow wrap without blowing out the box */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.rf-toc-item a:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.35);
+}
+
+.rf-toc-item a:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.55);
+  outline-offset: 2px;
+  border-bottom-color: rgba(0, 0, 0, 0.55);
+}
+
+/* h3: indented + slightly softer */
+.rf-toc-h3 a {
+  padding-left: 12px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+/* Sidebar behavior */
+.rf-toc--side {
+  margin: 0;
+}
+
+/* Desktop: the TOC box itself is height-limited by the sticky sidebar stack;
+   list scrolls because it's the flex child. No max-height needed here. */
+/* Mobile: sidebar isn’t constrained; let list flow naturally */
+@media (max-width: 820px) {
+  .rf-toc {
+    overflow: visible;
+  }
+  .rf-toc-list {
+    overflow: visible;
   }
 }
 

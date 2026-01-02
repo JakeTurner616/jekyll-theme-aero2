@@ -1,0 +1,70 @@
+<nav
+  class="rf-toc rf-toc--side"
+  aria-label="Table of contents"
+  hidden
+  data-root=".rf-prose"
+  data-headings="h2, h3"
+>
+  <div class="rf-toc-head">
+    <span class="rf-toc-kicker">On this page</span>
+  </div>
+  <ol class="rf-toc-list"></ol>
+</nav>
+
+<script>
+(() => {
+  const buildTOC = (toc) => {
+    const root = document.querySelector(toc.dataset.root || ".rf-prose");
+    if (!root) return;
+
+    const list = toc.querySelector(".rf-toc-list");
+    const headings = [...root.querySelectorAll(toc.dataset.headings || "h2,h3")];
+    if (!headings.length) return;
+
+    const slug = (s) =>
+      s.toLowerCase()
+       .trim()
+       .replace(/['"]/g, "")
+       .replace(/[^a-z0-9]+/g, "-")
+       .replace(/^-+|-+$/g, "");
+
+    const used = new Set();
+
+    const unique = (base) => {
+      let id = base || "section";
+      let i = 2;
+      while (used.has(id) || document.getElementById(id)) {
+        id = `${base}-${i++}`;
+      }
+      used.add(id);
+      return id;
+    };
+
+    list.innerHTML = "";
+
+    for (const h of headings) {
+      if (!h.id) h.id = unique(slug(h.textContent));
+
+      const li = document.createElement("li");
+      li.className = `rf-toc-item rf-toc-${h.tagName.toLowerCase()}`;
+
+      const a = document.createElement("a");
+      a.href = `#${h.id}`;
+      a.textContent = h.textContent;
+
+      li.appendChild(a);
+      list.appendChild(li);
+    }
+
+    toc.hidden = false;
+  };
+
+  const run = () => document.querySelectorAll(".rf-toc").forEach(buildTOC);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run, { once: true });
+  } else {
+    run();
+  }
+})();
+</script>

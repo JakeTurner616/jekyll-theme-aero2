@@ -51,4 +51,11 @@
 
 .rf-side {
   padding: 10px 14px 18px;
+
+  /* KEY: make the whole sidebar a sticky "column" */
+  position: sticky;
+  top: 16px;
+
+  /* KEY: constrain sidebar height so internal stacking can work */
+  max-height: calc(100dvh - 32px);
 }

@@ -166,3 +166,56 @@
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
+
+/* =========================================================
+   Sidebar stack: TOC on top, Latest below, TOC list scrolls
+   ========================================================= */
+
+.rf-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* KEY: allow internal scroll sizing inside constrained sticky sidebar */
+  min-height: 0;
+  height: 100%;
+}
+
+/* Latest sits naturally below; it should never be overlapped */
+.rf-rail--latest {
+  flex: 0 0 auto;
+}
+
+/* The TOC block is allowed to shrink to make room for Latest */
+.rf-side-stack .rf-toc {
+  flex: 1 1 auto;
+  min-height: 0; /* allows its list to scroll instead of forcing overflow */
+}
+/* =========================================================
+   Sidebar stack scroll safety (TOC scrolls under zoom)
+   ========================================================= */
+
+.rf-side {
+  /* sidebar is the sticky container in desktop layout */
+  position: sticky;
+  top: 16px;
+
+  /* cap sidebar height so internal scroll can engage */
+  max-height: calc(100dvh - 32px);
+}
+
+/* stack must be allowed to shrink */
+.rf-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 100%;
+  min-height: 0;
+}
+
+/* TOC block may shrink so Latest can remain visible */
+.rf-side-stack .rf-toc {
+  flex: 1 1 auto;
+  min-height: 0;
+}

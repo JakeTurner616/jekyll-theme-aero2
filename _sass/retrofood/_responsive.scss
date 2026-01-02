@@ -25,6 +25,11 @@
     /* “bottom module” separation */
     border-top: 2px solid var(--rule);
     padding-top: 14px;
+
+    /* sticky off on small screens */
+    position: static;
+    top: auto;
+    max-height: none;
   }
 
   /* center rail + cards, cap width so it feels intentional */
