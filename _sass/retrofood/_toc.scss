@@ -107,3 +107,9 @@
     overflow: visible;
   }
 }
+
+/* (opinion) Dont show the markdown toc in the post content area */
+#markdown-toc {
+  display: none;
+  visibility: hidden;
+}

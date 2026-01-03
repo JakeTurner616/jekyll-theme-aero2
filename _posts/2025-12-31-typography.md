@@ -5,14 +5,14 @@ description: >
   This post contains usage examples for text and formatting.
 categories: [reference]
 author: Jake Turner
+math: true
+tags: [reference, docs]
 ---
 
 {::options toc_levels="2..4" /}
 
 * TOC
 {:toc}
-
----
 
 ## Headings
 
@@ -98,3 +98,15 @@ Use text tooltips to emphasize information
 > **DANGER**
 > Deleting `_site` is safe, but deleting your source files isn’t.
 {: .alert .alert-danger}
+
+## Math
+
+`math: true` must be set in the page front matter to enable math.
+
+Inline: $E=mc^2$
+
+Display:
+
+$$
+\int_0^\infty e^{-x^2}\,dx=\frac{\sqrt{\pi}}{2}
+$$

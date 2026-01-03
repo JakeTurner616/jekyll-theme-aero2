@@ -134,7 +134,9 @@
   font-style: italic;
 }
 
-.rf-description, .rf-posthead {
-    display: none;
-    visibility: hidden;
+/* Contact page only: hide the generic posthead chrome */
+.page-contact .rf-posthead,
+.page-contact .rf-description {
+  display: none;
+  visibility: hidden;
 }

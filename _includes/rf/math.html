@@ -1,0 +1,48 @@
+{%- comment -%}
+KaTeX + auto-render
+- Renders math inside .rf-prose by default
+- Supports: $...$, $$...$$, \(..\), \[..\]
+{%- endcomment -%}
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
+  crossorigin="anonymous">
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js"
+  crossorigin="anonymous"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js"
+  crossorigin="anonymous"></script>
+
+<script>
+(() => {
+  // Run after deferred scripts load + DOM is ready
+  function bootMath() {
+    if (!window.renderMathInElement) return;
+
+    // Keep it scoped to your content to avoid touching nav/sidebar/code blocks
+    const root = document.querySelector(".rf-prose");
+    if (!root) return;
+
+    window.renderMathInElement(root, {
+      // KaTeX default DOES NOT include single $...$ by default, so we add it.
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$", right: "$", display: false }
+      ],
+      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+      throwOnError: false
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootMath);
+  } else {
+    bootMath();
+  }
+})();
+</script>

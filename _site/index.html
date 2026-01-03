@@ -104,7 +104,7 @@
       
         <a class="rf-tab" href="/getting-started/">Get Started</a>
       
-        <a class="rf-tab" href="/beer/">CRAFT BEER</a>
+        <a class="rf-tab" href="/tags/">Tags</a>
       
         <a class="rf-tab" href="/contact/">CONTACT</a>
       
@@ -173,6 +173,8 @@ and to keep working the same way for a long time.</p>
 
 
               </div>
+
+              
             </article>
           </main>
 
@@ -387,6 +389,7 @@ and to keep working the same way for a long time.</p>
   <div class="rf-muted">A design-first Jekyll theme inspired by print layout and early web UI.</div>
 </footer>
 
+      
     </div>
   </div>
 
@@ -415,7 +418,7 @@ and to keep working the same way for a long time.</p>
       if (img.dataset.noLightbox === "1") return;
 
       const parent = img.parentElement;
-      if (parent && parent.tagName === "A") return; // already linked
+      if (parent && parent.tagName === "A") return;
       if (!img.getAttribute("src")) return;
 
       const fig = img.closest("figure");
@@ -427,7 +430,6 @@ and to keep working the same way for a long time.</p>
       a.href = img.getAttribute("src");
       if (title) a.setAttribute("data-mfp-title", title);
 
-      // keep layout identical
       a.style.display = "inline-block";
       a.style.maxWidth = "100%";
 
@@ -435,7 +437,6 @@ and to keep working the same way for a long time.</p>
       a.appendChild(img);
     });
 
-    // Delegate lightbox within the article body (single image mode)
     $(".rf-prose").magnificPopup({
       delegate: "a.rf-gallery",
       type: "image",
@@ -452,5 +453,128 @@ and to keep working the same way for a long time.</p>
     });
   })();
   </script>
+  <script>
+(() => {
+  const $ = window.jQuery;
+  if (!$) return;
+
+  const $page = $(".rf-tagpage[data-tagpage='1']");
+  if (!$page.length) return;
+
+  const $chips = $page.find(".rf-tagchip");
+  const $groups = $page.find(".rf-taggroup");
+
+  function slugOfChip($chip) {
+    return String($chip.data("slug") || "");
+  }
+  function tagOfChip($chip) {
+    return String($chip.data("tag") || "");
+  }
+
+  function setActiveBySlug(slug) {
+    if (!slug) {
+      $groups.show();
+      $chips.removeClass("is-active");
+      return;
+    }
+
+    let found = false;
+
+    $groups.each(function () {
+      const s = String($(this).data("slug") || "");
+      const show = s === slug;
+      $(this).toggle(show);
+      if (show) found = true;
+    });
+
+    $chips.each(function () {
+      const s = slugOfChip($(this));
+      $(this).toggleClass("is-active", s === slug);
+    });
+
+    if (found) {
+      const el = document.getElementById(`tag-${slug}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  // --- Hash routing ---
+  // We use:
+  //   #/tag/<slug>  => filter
+  //   #/all or empty => show all
+  function readRoute() {
+    const h = (window.location.hash || "").trim();
+
+    if (!h || h === "#" || h === "#/all") return { mode: "all", slug: "" };
+
+    // accept old-style anchors too: #tag-docs
+    if (h.startsWith("#tag-")) {
+      return { mode: "tag", slug: h.slice("#tag-".length) };
+    }
+
+    // new style: #/tag/docs
+    if (h.startsWith("#/tag/")) {
+      const slug = decodeURIComponent(h.slice("#/tag/".length));
+      return { mode: "tag", slug };
+    }
+
+    return { mode: "all", slug: "" };
+  }
+
+  function writeRouteTag(slug) {
+    const next = slug ? `#/tag/${encodeURIComponent(slug)}` : "#/all";
+    if (window.location.hash !== next) window.location.hash = next;
+  }
+
+  function applyFromHash() {
+    const r = readRoute();
+    setActiveBySlug(r.mode === "tag" ? r.slug : "");
+  }
+
+  // Clicking tag text => set route (y2k “mode switch”)
+  $page.on("click", ".rf-tagchip .rf-tag-text", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $chip = $(this).closest(".rf-tagchip");
+    const slug = slugOfChip($chip);
+
+    const r = readRoute();
+    const isAlready = (r.mode === "tag" && r.slug === slug);
+
+    writeRouteTag(isAlready ? "" : slug);
+  });
+
+  // Keyboard accessibility
+  $page.on("keydown", ".rf-tagchip .rf-tag-text", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $chip = $(this).closest(".rf-tagchip");
+    const slug = slugOfChip($chip);
+
+    const r = readRoute();
+    const isAlready = (r.mode === "tag" && r.slug === slug);
+
+    writeRouteTag(isAlready ? "" : slug);
+  });
+
+  // Clicking the chip itself (not the text) keeps “jump to section” behavior,
+  // but we ALSO upgrade it to our route so the URL matches the UI mode.
+  $page.on("click", ".rf-tagchip", function (e) {
+    if ($(e.target).closest(".rf-tag-text").length) return; // handled above
+    const slug = slugOfChip($(this));
+    if (slug) writeRouteTag(slug);
+  });
+
+  // Listen to back/forward & manual hash edits
+  window.addEventListener("hashchange", applyFromHash);
+
+  // Initial load
+  applyFromHash();
+})();
+</script>
+
 </body>
 </html>

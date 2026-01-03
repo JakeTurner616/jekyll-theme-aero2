@@ -1,0 +1,29 @@
+{% if site.giscus and site.giscus.enabled %}
+  <section class="rf-comments" aria-label="Comments">
+    <div class="rf-card">
+      <div class="rf-card-head">
+        <div class="rf-kicker">Comments</div>
+      </div>
+      <div class="rf-card-body">
+        <div class="giscus"></div>
+      </div>
+    </div>
+  </section>
+
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="{{ site.giscus.repo }}"
+    data-repo-id="{{ site.giscus.repo_id }}"
+    data-category="{{ site.giscus.category }}"
+    data-category-id="{{ site.giscus.category_id }}"
+    data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+    data-strict="0"
+    data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+    data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+    data-input-position="{{ site.giscus.input_position | default: 'top' }}"
+    data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+    data-lang="{{ site.giscus.lang | default: 'en' }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+{% endif %}

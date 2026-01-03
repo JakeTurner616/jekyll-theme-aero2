@@ -106,7 +106,7 @@
       
         <a class="rf-tab" href="/getting-started/">Get Started</a>
       
-        <a class="rf-tab" href="/beer/">CRAFT BEER</a>
+        <a class="rf-tab" href="/tags/">Tags</a>
       
         <a class="rf-tab" href="/contact/">CONTACT</a>
       
@@ -186,9 +186,8 @@
     </ul>
   </li>
   <li><a href="#text-tooltips" id="markdown-toc-text-tooltips">Text ToolTips</a></li>
+  <li><a href="#math" id="markdown-toc-math">Math</a></li>
 </ul>
-
-<hr />
 
 <h2 id="headings">Headings</h2>
 
@@ -295,8 +294,51 @@ Don’t forget to close code fences, or the rest of the document becomes a code 
 Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe, but deleting your source files isn’t.</p>
 </blockquote>
 
+<h2 id="math">Math</h2>
+
+<p><code class="language-plaintext highlighter-rouge">math: true</code> must be set in the page front matter to enable math.</p>
+
+<p>Inline: $E=mc^2$</p>
+
+<p>Display:</p>
+
+\[\int_0^\infty e^{-x^2}\,dx=\frac{\sqrt{\pi}}{2}\]
+
 
               </div>
+
+              
+                
+  <section class="rf-comments" aria-label="Comments">
+    <div class="rf-card">
+      <div class="rf-card-head">
+        <div class="rf-kicker">Comments</div>
+      </div>
+      <div class="rf-card-body">
+        <div class="giscus"></div>
+      </div>
+    </div>
+  </section>
+
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="YOURNAME/YOUR-COMMENTS-REPO"
+    data-repo-id="REPO_ID_FROM_GISCUS_APP"
+    data-category="Announcements"
+    data-category-id="CATEGORY_ID_FROM_GISCUS_APP"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+  </script>
+
+
+              
             </article>
           </main>
 
@@ -583,6 +625,51 @@ Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe
   <div class="rf-muted">A design-first Jekyll theme inspired by print layout and early web UI.</div>
 </footer>
 
+      
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
+  crossorigin="anonymous">
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js"
+  crossorigin="anonymous"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js"
+  crossorigin="anonymous"></script>
+
+<script>
+(() => {
+  // Run after deferred scripts load + DOM is ready
+  function bootMath() {
+    if (!window.renderMathInElement) return;
+
+    // Keep it scoped to your content to avoid touching nav/sidebar/code blocks
+    const root = document.querySelector(".rf-prose");
+    if (!root) return;
+
+    window.renderMathInElement(root, {
+      // KaTeX default DOES NOT include single $...$ by default, so we add it.
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$", right: "$", display: false }
+      ],
+      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+      throwOnError: false
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootMath);
+  } else {
+    bootMath();
+  }
+})();
+</script>
+
+
     </div>
   </div>
 
@@ -611,7 +698,7 @@ Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe
       if (img.dataset.noLightbox === "1") return;
 
       const parent = img.parentElement;
-      if (parent && parent.tagName === "A") return; // already linked
+      if (parent && parent.tagName === "A") return;
       if (!img.getAttribute("src")) return;
 
       const fig = img.closest("figure");
@@ -623,7 +710,6 @@ Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe
       a.href = img.getAttribute("src");
       if (title) a.setAttribute("data-mfp-title", title);
 
-      // keep layout identical
       a.style.display = "inline-block";
       a.style.maxWidth = "100%";
 
@@ -631,7 +717,6 @@ Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe
       a.appendChild(img);
     });
 
-    // Delegate lightbox within the article body (single image mode)
     $(".rf-prose").magnificPopup({
       delegate: "a.rf-gallery",
       type: "image",
@@ -648,5 +733,128 @@ Deleting <code class="language-plaintext highlighter-rouge">_site</code> is safe
     });
   })();
   </script>
+  <script>
+(() => {
+  const $ = window.jQuery;
+  if (!$) return;
+
+  const $page = $(".rf-tagpage[data-tagpage='1']");
+  if (!$page.length) return;
+
+  const $chips = $page.find(".rf-tagchip");
+  const $groups = $page.find(".rf-taggroup");
+
+  function slugOfChip($chip) {
+    return String($chip.data("slug") || "");
+  }
+  function tagOfChip($chip) {
+    return String($chip.data("tag") || "");
+  }
+
+  function setActiveBySlug(slug) {
+    if (!slug) {
+      $groups.show();
+      $chips.removeClass("is-active");
+      return;
+    }
+
+    let found = false;
+
+    $groups.each(function () {
+      const s = String($(this).data("slug") || "");
+      const show = s === slug;
+      $(this).toggle(show);
+      if (show) found = true;
+    });
+
+    $chips.each(function () {
+      const s = slugOfChip($(this));
+      $(this).toggleClass("is-active", s === slug);
+    });
+
+    if (found) {
+      const el = document.getElementById(`tag-${slug}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  // --- Hash routing ---
+  // We use:
+  //   #/tag/<slug>  => filter
+  //   #/all or empty => show all
+  function readRoute() {
+    const h = (window.location.hash || "").trim();
+
+    if (!h || h === "#" || h === "#/all") return { mode: "all", slug: "" };
+
+    // accept old-style anchors too: #tag-docs
+    if (h.startsWith("#tag-")) {
+      return { mode: "tag", slug: h.slice("#tag-".length) };
+    }
+
+    // new style: #/tag/docs
+    if (h.startsWith("#/tag/")) {
+      const slug = decodeURIComponent(h.slice("#/tag/".length));
+      return { mode: "tag", slug };
+    }
+
+    return { mode: "all", slug: "" };
+  }
+
+  function writeRouteTag(slug) {
+    const next = slug ? `#/tag/${encodeURIComponent(slug)}` : "#/all";
+    if (window.location.hash !== next) window.location.hash = next;
+  }
+
+  function applyFromHash() {
+    const r = readRoute();
+    setActiveBySlug(r.mode === "tag" ? r.slug : "");
+  }
+
+  // Clicking tag text => set route (y2k “mode switch”)
+  $page.on("click", ".rf-tagchip .rf-tag-text", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $chip = $(this).closest(".rf-tagchip");
+    const slug = slugOfChip($chip);
+
+    const r = readRoute();
+    const isAlready = (r.mode === "tag" && r.slug === slug);
+
+    writeRouteTag(isAlready ? "" : slug);
+  });
+
+  // Keyboard accessibility
+  $page.on("keydown", ".rf-tagchip .rf-tag-text", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $chip = $(this).closest(".rf-tagchip");
+    const slug = slugOfChip($chip);
+
+    const r = readRoute();
+    const isAlready = (r.mode === "tag" && r.slug === slug);
+
+    writeRouteTag(isAlready ? "" : slug);
+  });
+
+  // Clicking the chip itself (not the text) keeps “jump to section” behavior,
+  // but we ALSO upgrade it to our route so the URL matches the UI mode.
+  $page.on("click", ".rf-tagchip", function (e) {
+    if ($(e.target).closest(".rf-tag-text").length) return; // handled above
+    const slug = slugOfChip($(this));
+    if (slug) writeRouteTag(slug);
+  });
+
+  // Listen to back/forward & manual hash edits
+  window.addEventListener("hashchange", applyFromHash);
+
+  // Initial load
+  applyFromHash();
+})();
+</script>
+
 </body>
 </html>

@@ -4,6 +4,7 @@ permalink: /getting-started/
 title: Getting Started
 description: >
   This post contains quickstart information, and examples for building the theme.
+tags: [getting started, docs]
 ---
 
 ## 1) Clone the repo
