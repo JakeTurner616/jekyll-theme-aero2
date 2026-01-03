@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Text & Typography
+description: >
+  This post contains usage examples for text and formatting.
 categories: [reference]
 author: Jake Turner
 ---

@@ -15,23 +15,39 @@
 
       <div class="rf-frame">
         <div class="rf-grid">
-          <main class="rf-main">
-            <article class="rf-article">
+          <main class="rf-main" id="content">
+            <article class="rf-article"
+              {% if page.layout == "post" %}
+                itemscope itemtype="https://schema.org/BlogPosting"
+              {% endif %}
+            >
               {% if page.title %}
                 <header class="rf-posthead">
-                  <h1 class="rf-h1">{{ page.title }}</h1>
+                  <h1 class="rf-h1" {% if page.layout == "post" %}itemprop="headline"{% endif %}>
+                    {{ page.title }}
+                  </h1>
+
+                  {% if page.description %}
+                    <p class="rf-description" {% if page.layout == "post" %}itemprop="description"{% endif %}>
+                      {{ page.description }}
+                    </p>
+                  {% endif %}
 
                   {% if page.layout == "post" %}
                     <div class="rf-byline">
-                      <time class="rf-date" datetime="{{ page.date | date_to_xmlschema }}">
+                      <time class="rf-date"
+                            datetime="{{ page.date | date_to_xmlschema }}"
+                            itemprop="datePublished">
                         {{ page.date | date: "%B %-d, %Y" }}
                       </time>
 
                       {% if page.author %}
-                        <span class="rf-dot">•</span>
+                        <span class="rf-dot" aria-hidden="true">•</span>
                         {% assign author_label = page.author.name | default: page.author %}
                         {% assign author_url = page.author.url | default: site.author_url | default: "/contact/" %}
-                        <a class="rf-author" href="{{ author_url | relative_url }}">{{ author_label }}</a>
+                        <a class="rf-author" href="{{ author_url | relative_url }}" itemprop="author">
+                          {{ author_label }}
+                        </a>
                       {% endif %}
                     </div>
 
@@ -40,7 +56,7 @@
                 </header>
               {% endif %}
 
-              <div class="rf-prose">
+              <div class="rf-prose" {% if page.layout == "post" %}itemprop="articleBody"{% endif %}>
                 {{ content }}
               </div>
             </article>
@@ -62,6 +78,65 @@
 
   <!-- Scripts: jQuery MUST load before aero2.js -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Magnific Popup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
+
   <script src="{{ '/assets/js/aero2.js' | relative_url }}"></script>
+
+  <!-- RF: image lightbox gallery -->
+  <script>
+  (() => {
+    const $ = window.jQuery;
+    if (!$ || !$.fn || !$.fn.magnificPopup) return;
+
+    const root = document.querySelector(".rf-prose");
+    if (!root) return;
+
+    // Wrap eligible images with <a> so Magnific can delegate-click them.
+    // Opt-out by adding: data-no-lightbox="1" on the <img>.
+    const imgs = root.querySelectorAll("img.rf-media, .rf-prose img");
+    imgs.forEach((img) => {
+      if (!(img instanceof HTMLImageElement)) return;
+      if (img.dataset.noLightbox === "1") return;
+
+      const parent = img.parentElement;
+      if (parent && parent.tagName === "A") return; // already linked
+      if (!img.getAttribute("src")) return;
+
+      const fig = img.closest("figure");
+      const cap = fig ? fig.querySelector("figcaption") : null;
+      const title = cap ? cap.textContent.trim() : (img.getAttribute("alt") || "").trim();
+
+      const a = document.createElement("a");
+      a.className = "rf-gallery";
+      a.href = img.getAttribute("src");
+      if (title) a.setAttribute("data-mfp-title", title);
+
+      // keep layout identical
+      a.style.display = "inline-block";
+      a.style.maxWidth = "100%";
+
+      img.parentNode.insertBefore(a, img);
+      a.appendChild(img);
+    });
+
+    // Delegate lightbox within the article body (single image mode)
+    $(".rf-prose").magnificPopup({
+      delegate: "a.rf-gallery",
+      type: "image",
+      closeOnContentClick: false,
+      closeBtnInside: true,
+      fixedContentPos: true,
+      mainClass: "mfp-fade",
+      image: {
+        titleSrc: function(item) {
+          const t = item.el && item.el.attr("data-mfp-title");
+          return t ? t : "";
+        }
+      }
+    });
+  })();
+  </script>
 </body>
 </html>

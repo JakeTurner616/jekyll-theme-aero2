@@ -1,0 +1,18 @@
+{% assign id = include.id %}
+{% assign title = include.title | default: "YouTube video" %}
+
+<figure class="rf-video">
+  <div class="rf-video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/{{ id }}"
+      title="{{ title | escape }}"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  {% if include.caption %}
+    <figcaption class="rf-caption">{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>

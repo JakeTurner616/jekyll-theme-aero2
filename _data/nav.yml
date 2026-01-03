@@ -1,9 +1,9 @@
 - label: HOME
   href: /
-- label: SANDWICHES
-  href: /sandwitches/
-- label: LOCATION
-  href: /location/
+- label: Blog
+  href: /Blog/
+- label: Get Started
+  href: /getting-started/
 - label: CRAFT BEER
   href: /beer/
 - label: CONTACT

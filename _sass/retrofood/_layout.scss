@@ -37,12 +37,16 @@
 
 .rf-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   gap: 0;
   position: relative;
   padding: 18px;
 }
 
+.rf-main,
+.rf-side {
+  min-width: 0;
+}
 .rf-main {
   padding: 10px 16px 18px;
   border-right: 2px solid var(--rule);
@@ -52,10 +56,15 @@
 .rf-side {
   padding: 10px 14px 18px;
 
-  /* KEY: make the whole sidebar a sticky "column" */
   position: sticky;
   top: 16px;
-
-  /* KEY: constrain sidebar height so internal stacking can work */
   max-height: calc(100dvh - 32px);
+
+  /* ✅ KEY: prevent sidebar content from spilling over the layout */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* optional: nicer scrolling */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }

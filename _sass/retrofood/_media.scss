@@ -1,0 +1,45 @@
+/* =========================================================
+   Video embeds — YouTube / Vimeo
+   ========================================================= */
+
+.rf-video {
+  margin: 18px auto 22px;
+  max-width: 100%;
+}
+
+/* Paper inset frame */
+.rf-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  background: var(--paper2);
+  border: 2px solid var(--rule);
+  padding: 6px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    0 1px 0 rgba(0,0,0,.08);
+}
+
+/* Inner video */
+.rf-video-frame iframe {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border: 0;
+  background: #000;
+}
+
+/* Caption matches image captions */
+.rf-video .rf-caption {
+  margin-top: 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(17,17,17,.72);
+}

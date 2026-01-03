@@ -3,3 +3,51 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+<!-- Magnific Popup (gallery/lightbox) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css">
+
+<style>
+  /* Make Magnific feel like your theme */
+  .mfp-bg { background: rgba(10,10,10,.92); }
+
+  .mfp-figure:after {
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .mfp-content {
+    padding: 12px;
+  }
+
+  /* Paper-ish frame around the image */
+  .mfp-figure {
+    background: #fbfaf6;
+    border: 2px solid #121212;
+    padding: 10px;
+  }
+
+/* TRUE center caption: remove counter-reserve padding and force full width */
+.mfp-bottom-bar{
+  left: 0;
+  width: 100%;
+}
+
+.mfp-title{
+  width: 100%;
+  text-align: center;
+  padding-right: 0 !important; /* key: undo reserved space for .mfp-counter */
+  margin: 0 auto;
+  color:#000000;
+}
+
+/* defensive: no counter in single-image mode */
+.mfp-counter{
+  display: none !important;
+}
+
+  /* Bigger, clearer arrows */
+  .mfp-arrow:before, .mfp-arrow:after { border-top-width: 14px; border-bottom-width: 14px; }
+  .mfp-close { color: #000000; opacity: .9; }
+  .mfp-close:hover { opacity: 1; }
+</style>

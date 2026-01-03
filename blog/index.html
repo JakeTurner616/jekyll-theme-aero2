@@ -1,0 +1,48 @@
+---
+layout: page
+title: Blog
+permalink: /blog/
+description: All posts, newest first.
+---
+
+<section class="rf-blogroll">
+  <header class="rf-rail-head rf-blogroll-head">
+    <div class="rf-rail-kicker">{{ site.sidebar_kicker | default: "LATEST" }}</div>
+    <h2 class="rf-rail-title">{{ site.sidebar_title | default: "All Posts" }}</h2>
+  </header>
+
+  <div class="rf-blogroll-grid">
+    {% for post in site.posts %}
+      <article class="rf-card rf-card--post rf-blogroll-item">
+        <header class="rf-card-head">
+          <h3 class="rf-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+
+          <div class="rf-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%b %-d, %Y" }}
+            </time>
+
+            {% if post.categories and post.categories.size > 0 %}
+              <span class="rf-dot">•</span>
+              <span class="rf-cat">{{ post.categories[0] }}</span>
+            {% endif %}
+          </div>
+        </header>
+
+        <div class="rf-card-body rf-card-body--post">
+          {% assign blurb = post.description | default: post.excerpt %}
+          <p class="rf-excerpt">
+            {{ blurb | strip_html | strip_newlines | truncate: 200 }}
+          </p>
+        </div>
+
+        <div class="rf-pricebar">
+          <div class="rf-price">READ</div>
+          <a class="rf-arrow" href="{{ post.url | relative_url }}" aria-label="Read post"></a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>

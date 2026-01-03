@@ -1,0 +1,140 @@
+/* =========================================================
+   Contact (content-first, image optional)
+   ========================================================= */
+
+.rf-contact-head { margin-bottom: 12px; }
+
+.rf-contact-hero {
+  margin: 0 0 12px;
+  padding: 12px;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+
+/* Only become two-column when an image exists and screen is wide */
+@media (min-width: 860px) {
+  .rf-contact-hero {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  /* If there is no media, blurb should span full width */
+  .rf-contact-hero:not(:has(.rf-contact-media)) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Media block */
+.rf-contact-media {
+  margin: 0;
+  min-width: 0;
+}
+
+.rf-contact-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid var(--rule);
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* Caption: stable, centered */
+.rf-contact-caption {
+  margin: 8px auto 0;
+  max-width: 52ch;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(17,17,17,.72);
+}
+
+/* Blurb */
+.rf-contact-blurb { min-width: 0; }
+
+.rf-contact-blurb p {
+  margin: 0 0 10px;
+  max-width: 72ch;
+  color: rgba(17,17,17,.86);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.rf-contact-blurb p:last-child { margin-bottom: 0; }
+
+/* Inline primary contact line */
+.rf-contact-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+.rf-contact-primary-label {
+  font-weight: 900;
+  font-size: 11px;
+  color: rgba(17,17,17,.70);
+}
+
+.rf-contact-primary-link {
+  font-weight: 900;
+  font-size: 11px;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* =========================================================
+   Contact grid (cards)
+   ========================================================= */
+
+.rf-contact-grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 860px) {
+  .rf-contact-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.rf-contact-card .rf-card-body {
+  min-height: auto;
+  display: block;
+}
+
+.rf-contact-line {
+  margin: 10px 0 0;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.rf-contact-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.rf-contact-note {
+  margin: 12px 0 0;
+  max-width: 65ch;
+  color: rgba(17,17,17,.78);
+  font-style: italic;
+}
+
+.rf-description, .rf-posthead {
+    display: none;
+    visibility: hidden;
+}

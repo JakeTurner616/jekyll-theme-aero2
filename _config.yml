@@ -1,14 +1,24 @@
+# -------------------------------------------------
+# Site metadata
+# -------------------------------------------------
 title: Aero2
-description: A fresh Jekyll theme starter
-tagline: Craft Beer & Fine Food
+description: A design-first Jekyll theme inspired by print layout and early web UI.
+tagline: Confident structure. Clear hierarchy.
 
-url: ""
+url: https://example.com
 baseurl: ""
 
+lang: en
+timezone: America/Denver
+
+# -------------------------------------------------
+# Theme
+# -------------------------------------------------
 theme: jekyll-theme-aero2
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # -------------------------------------------------
 # Defaults
@@ -18,11 +28,12 @@ defaults:
       path: ""
     values:
       layout: retro
+
   - scope:
       path: ""
       type: posts
     values:
-      layout: retro
+      layout: post
 
 # -------------------------------------------------
 # Basics

@@ -1,0 +1,147 @@
+<section class="rf-contact">
+  <header class="rf-rail-head rf-contact-head">
+    <div class="rf-rail-kicker">{{ include.kicker | default: "CONTACT" }}</div>
+    <h2 class="rf-rail-title">{{ include.title | default: "Get in touch" }}</h2>
+  </header>
+
+  <section class="rf-contact-hero" aria-label="Contact intro">
+    {% if include.image %}
+      <figure class="rf-contact-media">
+        <a class="rf-gallery" href="{{ include.image | relative_url }}">
+          <img
+            class="rf-contact-img"
+            src="{{ include.image | relative_url }}"
+            alt="{{ include.image_alt | default: 'Contact image' | escape }}"
+            loading="lazy"
+            decoding="async"
+          >
+        </a>
+
+        {% if include.image_caption %}
+          <figcaption class="rf-caption rf-contact-caption">
+            {{ include.image_caption }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    <div class="rf-contact-blurb">
+      {% if include.blurb %}
+        <p>{{ include.blurb }}</p>
+      {% else %}
+        <p>Best way to reach me is email — socials are below if that’s easier.</p>
+      {% endif %}
+
+
+    </div>
+  </section>
+
+  <div class="rf-contact-grid">
+
+    <!-- Email -->
+    <article class="rf-card rf-contact-card">
+      <header class="rf-card-head">
+        <h3>Email</h3>
+        <div class="rf-cal">Primary</div>
+      </header>
+
+      <div class="rf-card-body rf-card-body--post">
+        <p class="rf-excerpt">
+          Best for questions, fixes, and longer notes.
+        </p>
+      </div>
+
+      <div class="rf-pricebar">
+        <div class="rf-price">WRITE</div>
+        <a
+          class="rf-arrow"
+          href="mailto:{{ include.email }}"
+          aria-label="Email"
+        ></a>
+      </div>
+    </article>
+
+    <!-- GitHub -->
+    {% if include.github %}
+    <article class="rf-card rf-contact-card">
+      <header class="rf-card-head">
+        <h3>GitHub</h3>
+        <div class="rf-cal">Code</div>
+      </header>
+
+      <div class="rf-card-body rf-card-body--post">
+        <p class="rf-excerpt">
+          Issues, PRs, and project links live here.
+        </p>
+      </div>
+
+      <div class="rf-pricebar">
+        <div class="rf-price">OPEN</div>
+        <a
+          class="rf-arrow"
+          href="{{ include.github }}"
+          rel="me"
+          aria-label="Open GitHub profile"
+        ></a>
+      </div>
+    </article>
+    {% endif %}
+
+    <!-- LinkedIn -->
+    {% if include.linkedin %}
+    <article class="rf-card rf-contact-card">
+      <header class="rf-card-head">
+        <h3>LinkedIn</h3>
+        <div class="rf-cal">Work</div>
+      </header>
+
+      <div class="rf-card-body rf-card-body--post">
+        <p class="rf-excerpt">
+          Professional profile and messaging.
+        </p>
+      </div>
+
+      <div class="rf-pricebar">
+        <div class="rf-price">VIEW</div>
+        <a
+          class="rf-arrow"
+          href="{{ include.linkedin }}"
+          rel="me"
+          aria-label="View LinkedIn profile"
+        ></a>
+      </div>
+    </article>
+    {% endif %}
+
+    <!-- X -->
+    {% if include.x %}
+    <article class="rf-card rf-contact-card">
+      <header class="rf-card-head">
+        <h3>X</h3>
+        <div class="rf-cal">Short</div>
+      </header>
+
+      <div class="rf-card-body rf-card-body--post">
+        <p class="rf-excerpt">
+          Quick pings and tiny updates.
+        </p>
+      </div>
+
+      <div class="rf-pricebar">
+        <div class="rf-price">GO</div>
+        <a
+          class="rf-arrow"
+          href="{{ include.x }}"
+          rel="me"
+          aria-label="Open X profile"
+        ></a>
+      </div>
+    </article>
+    {% endif %}
+
+  </div>
+
+  {% if include.note %}
+    <p class="rf-contact-note">{{ include.note }}</p>
+  {% endif %}
+</section>

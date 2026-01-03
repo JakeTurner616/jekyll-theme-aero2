@@ -1,8 +1,15 @@
 {% assign max_items = page.sidebar_limit | default: 4 %}
+{% assign per_page = 2 %}
 
 {% assign toc_enabled = true %}
 {% if page.toc == false %}
   {% assign toc_enabled = false %}
+{% endif %}
+
+{% assign total_posts = site.posts | size %}
+{% assign render_count = total_posts %}
+{% if render_count > max_items %}
+  {% assign render_count = max_items %}
 {% endif %}
 
 <div class="rf-side-stack">
@@ -16,37 +23,52 @@
       <h2 class="rf-rail-title">{{ site.sidebar_title | default: "Recent Posts" }}</h2>
     </div>
 
-    {% for post in site.posts limit:max_items %}
-      <article class="rf-card rf-card--post">
-        <header class="rf-card-head">
-          <h3 class="rf-card-title">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h3>
+    <div
+      class="rf-rail-pages"
+      data-per-page="{{ per_page }}"
+      data-total="{{ render_count }}"
+    >
+      {% for post in site.posts limit:render_count %}
+        <article class="rf-card rf-card--post rf-rail-item" data-idx="{{ forloop.index0 }}">
+          <header class="rf-card-head">
+            <h3 class="rf-card-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
 
-          <div class="rf-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">
-              {{ post.date | date: "%b %-d, %Y" }}
-            </time>
+            <div class="rf-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%b %-d, %Y" }}
+              </time>
 
-            {% if post.categories and post.categories.size > 0 %}
-              <span class="rf-dot">•</span>
-              <span class="rf-cat">{{ post.categories[0] }}</span>
-            {% endif %}
+              {% if post.categories and post.categories.size > 0 %}
+                <span class="rf-dot">•</span>
+                <span class="rf-cat">{{ post.categories[0] }}</span>
+              {% endif %}
+            </div>
+          </header>
+
+          <div class="rf-card-body rf-card-body--post">
+            {% assign blurb = post.description | default: post.excerpt %}
+<p class="rf-excerpt">
+  {{ blurb | strip_html | strip_newlines | truncate: 140 }}
+</p>
           </div>
-        </header>
 
-        <div class="rf-card-body rf-card-body--post">
-          <p class="rf-excerpt">
-            {{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}
-          </p>
-        </div>
+          <div class="rf-pricebar">
+            <div class="rf-price">READ</div>
+            <a class="rf-arrow" href="{{ post.url | relative_url }}" aria-label="Read post"></a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
 
-        <div class="rf-pricebar">
-          <div class="rf-price">READ</div>
-          <a class="rf-arrow" href="{{ post.url | relative_url }}" aria-label="Read post"></a>
-        </div>
-      </article>
-    {% endfor %}
+    {% if render_count > per_page %}
+      <nav class="rf-rail-pager" aria-label="Recent posts pagination">
+        <button class="rf-pager-btn rf-pager-prev" type="button" aria-label="Previous posts" disabled>Prev</button>
+        <span class="rf-pager-status" aria-live="polite">1 / 1</span>
+        <button class="rf-pager-btn rf-pager-next" type="button" aria-label="Next posts">Next</button>
+      </nav>
+    {% endif %}
 
     {% if site.posts.size > max_items %}
       <div class="rf-rail-more">
@@ -55,3 +77,45 @@
     {% endif %}
   </section>
 </div>
+
+<script>
+(() => {
+  const root = document.currentScript?.previousElementSibling?.querySelector?.(".rf-rail-pages")
+            || document.querySelector(".rf-rail-pages");
+  if (!root) return;
+
+  const total = +root.dataset.total || 0;
+  const perPage = +root.dataset.perPage || 2;
+  if (total <= perPage) return;
+
+  const items = [...root.querySelectorAll(".rf-rail-item")];
+  const pager = root.parentElement.querySelector(".rf-rail-pager");
+  if (!pager) return;
+
+  const prevBtn = pager.querySelector(".rf-pager-prev");
+  const nextBtn = pager.querySelector(".rf-pager-next");
+  const status = pager.querySelector(".rf-pager-status");
+
+  const pages = Math.max(1, Math.ceil(total / perPage));
+  let page = 0;
+
+  const render = () => {
+    const start = page * perPage;
+    const end = start + perPage;
+
+    for (let i = 0; i < items.length; i++) {
+      const show = i >= start && i < end;
+      items[i].hidden = !show;
+    }
+
+    status.textContent = `${page + 1} / ${pages}`;
+    prevBtn.disabled = page <= 0;
+    nextBtn.disabled = page >= pages - 1;
+  };
+
+  prevBtn.addEventListener("click", () => { if (page > 0) { page--; render(); } });
+  nextBtn.addEventListener("click", () => { if (page < pages - 1) { page++; render(); } });
+
+  render();
+})();
+</script>

@@ -101,10 +101,15 @@ body {
 
 .rf-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   gap: 0;
   position: relative;
   padding: 18px;
+}
+
+.rf-main,
+.rf-side {
+  min-width: 0;
 }
 
 .rf-main {
@@ -115,11 +120,15 @@ body {
 
 .rf-side {
   padding: 10px 14px 18px;
-  /* KEY: make the whole sidebar a sticky "column" */
   position: sticky;
   top: 16px;
-  /* KEY: constrain sidebar height so internal stacking can work */
   max-height: calc(100dvh - 32px);
+  /* ✅ KEY: prevent sidebar content from spilling over the layout */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* optional: nicer scrolling */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /* =========================================================
@@ -619,6 +628,82 @@ body {
 }
 
 /* =========================================================
+   Recent posts rail pagination — low-key retro jQuery vibe
+   ========================================================= */
+.rf-rail-item[hidden] {
+  display: none !important;
+}
+
+.rf-rail-pager {
+  margin: 6px 0 12px;
+  padding: 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  /* subtle bar like a tiny widget footer */
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  background: linear-gradient(#fbfaf6, #efede6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* tiny “status text” like old UI */
+.rf-pager-status {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.62);
+  padding: 0 6px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* small beveled buttons */
+.rf-pager-btn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  background: linear-gradient(#ffffff, #e7e4dc);
+  color: rgba(17, 17, 17, 0.86);
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-weight: 900;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.08), 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+.rf-pager-btn:hover {
+  background: linear-gradient(#ffffff, #dedad0);
+  border-color: rgba(0, 0, 0, 0.45);
+}
+
+.rf-pager-btn:active {
+  background: linear-gradient(#dedad0, #ffffff);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.16), 0 1px 0 rgba(0, 0, 0, 0.04);
+  transform: translateY(1px);
+}
+
+.rf-pager-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  filter: grayscale(0.25);
+  transform: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.rf-pager-btn:focus-visible {
+  outline: 2px dotted rgba(0, 0, 0, 0.7);
+  outline-offset: 2px;
+}
+
+/* =========================================================
    Footer
    ========================================================= */
 .rf-footer {
@@ -946,6 +1031,189 @@ body {
   .rf-toc-list {
     overflow: visible;
   }
+}
+/* =========================================================
+   Video embeds — YouTube / Vimeo
+   ========================================================= */
+.rf-video {
+  margin: 18px auto 22px;
+  max-width: 100%;
+}
+
+/* Paper inset frame */
+.rf-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--paper2);
+  border: 2px solid var(--rule);
+  padding: 6px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Inner video */
+.rf-video-frame iframe {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border: 0;
+  background: #000;
+}
+
+/* Caption matches image captions */
+.rf-video .rf-caption {
+  margin-top: 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.72);
+}
+
+/* =========================================================
+   Contact (content-first, image optional)
+   ========================================================= */
+.rf-contact-head {
+  margin-bottom: 12px;
+}
+
+.rf-contact-hero {
+  margin: 0 0 12px;
+  padding: 12px;
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+
+/* Only become two-column when an image exists and screen is wide */
+@media (min-width: 860px) {
+  .rf-contact-hero {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  /* If there is no media, blurb should span full width */
+  .rf-contact-hero:not(:has(.rf-contact-media)) {
+    grid-template-columns: 1fr;
+  }
+}
+/* Media block */
+.rf-contact-media {
+  margin: 0;
+  min-width: 0;
+}
+
+.rf-contact-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid var(--rule);
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* Caption: stable, centered */
+.rf-contact-caption {
+  margin: 8px auto 0;
+  max-width: 52ch;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(17, 17, 17, 0.72);
+}
+
+/* Blurb */
+.rf-contact-blurb {
+  min-width: 0;
+}
+
+.rf-contact-blurb p {
+  margin: 0 0 10px;
+  max-width: 72ch;
+  color: rgba(17, 17, 17, 0.86);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.rf-contact-blurb p:last-child {
+  margin-bottom: 0;
+}
+
+/* Inline primary contact line */
+.rf-contact-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.rf-contact-primary-label {
+  font-weight: 900;
+  font-size: 11px;
+  color: rgba(17, 17, 17, 0.7);
+}
+
+.rf-contact-primary-link {
+  font-weight: 900;
+  font-size: 11px;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* =========================================================
+   Contact grid (cards)
+   ========================================================= */
+.rf-contact-grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 860px) {
+  .rf-contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.rf-contact-card .rf-card-body {
+  min-height: auto;
+  display: block;
+}
+
+.rf-contact-line {
+  margin: 10px 0 0;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rf-contact-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.rf-contact-note {
+  margin: 12px 0 0;
+  max-width: 65ch;
+  color: rgba(17, 17, 17, 0.78);
+  font-style: italic;
+}
+
+.rf-description, .rf-posthead {
+  display: none;
+  visibility: hidden;
 }
 
 /*# sourceMappingURL=style.css.map */

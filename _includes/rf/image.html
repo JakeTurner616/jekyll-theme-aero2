@@ -1,0 +1,17 @@
+{% assign src = include.src | default: "" %}
+{% assign alt = include.alt | default: "" %}
+{% assign caption = include.caption %}
+{% assign loading = include.loading | default: "lazy" %}
+
+<figure class="rf-figure">
+  <img
+    class="rf-media"
+    src="{{ src | relative_url }}"
+    alt="{{ alt | escape }}"
+    loading="{{ loading }}"
+    decoding="async"
+  >
+  {% if caption %}
+    <figcaption class="rf-caption">{{ caption }}</figcaption>
+  {% endif %}
+</figure>
