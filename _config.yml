@@ -71,7 +71,7 @@ giscus:
   repo_id: "R_kgDOQyTIHg"
   category: "Comments"
   category_id: "DIC_kwDOQyTIHs4C0jRZ"
-  mapping: "pathname"
+  mapping: "og:title"
   reactions_enabled: "1"
   emit_metadata: "0"
   input_position: "top"
