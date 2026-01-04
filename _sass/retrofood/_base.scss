@@ -1,3 +1,4 @@
+/* _sass/retrofood/_base.scss */
 html { min-width: 350px; }
 
 body {
@@ -6,14 +7,10 @@ body {
 }
 
 /* =========================================================
-   Retro Food / Newspaper Menu UI
+   Retro Food / Newspaper Menu UI — THEME TOKENS
    ========================================================= */
 .rf {
-  /* =====================================================
-     Fonts
-     ===================================================== */
-
-  /* Primary font — used for body, UI, headings, nav */
+  /* Fonts */
   --font-main: "Source Sans 3",
     ui-sans-serif,
     system-ui,
@@ -22,7 +19,6 @@ body {
     Roboto,
     sans-serif;
 
-  /* Monospace — code, metadata, technical accents */
   --font-mono: "IBM Plex Mono",
     ui-monospace,
     SFMono-Regular,
@@ -30,15 +26,97 @@ body {
     Consolas,
     monospace;
 
-  /* existing vars */
+  /* Core surfaces */
   --ink: #111;
   --paper: #f2f0ea;
   --paper2: #fbfaf6;
   --rule: #121212;
   --muted: rgba(17,17,17,.68);
   --shadow: rgba(0,0,0,.18);
+
+  /* Accents */
   --accent: #f2c34a;
   --accent2: #e1a93a;
 
+  /* Semantics */
+  --ink-strong: rgba(17,17,17,.92);
+  --ink-body:   rgba(17,17,17,.90);
+  --ink-soft:   rgba(17,17,17,.78);
+  --ink-faint:  rgba(17,17,17,.62);
+
+  --ui-hi: rgba(255,255,255,.85);
+  --ui-lo: rgba(0,0,0,.08);
+
+  /* Code theme */
+  --code-bg: #f7f5ef;
+  --code-ink: #1a1a1a;
+  --code-inline-bg: rgba(255,255,255,.65);
+  --code-inline-bd: rgba(0,0,0,.25);
+  --code-sel: rgba(242,195,74,.6);
+
+  --tok-c:  #6b6b6b;
+  --tok-k:  #000;
+  --tok-s:  #8b1e1e;
+  --tok-nf: #003366;
+  --tok-nt: #004b3a;
+  --tok-na: #5a2e00;
+  --tok-m:  #7a5200;
+
+  /* Paper texture colors (used in _layout.scss) */
+  --tex-a: rgba(0,0,0,.03);
+  --tex-b: rgba(0,0,0,.025);
+  --tex-c: rgba(0,0,0,.02);
+  --tex-d: rgba(0,0,0,.04);
+  --tex-e: rgba(0,0,0,.035);
+
   font-family: var(--font-main);
+  color: var(--ink);
+}
+
+/* =========================================================
+   Dark theme override (drives EVERYTHING via vars)
+   ========================================================= */
+html[data-theme="dark"] .rf {
+  --ink: rgba(255,255,255,.92);
+  --paper: #0f1114;
+  --paper2: #151a22;
+  --rule: rgba(255,255,255,.22);
+  --muted: rgba(255,255,255,.62);
+  --shadow: rgba(0,0,0,.55);
+
+  --accent: #7dd3fc;
+  --accent2: #38bdf8;
+
+  --ink-strong: rgba(255,255,255,.92);
+  --ink-body:   rgba(255,255,255,.86);
+  --ink-soft:   rgba(255,255,255,.74);
+  --ink-faint:  rgba(255,255,255,.58);
+
+  --ui-hi: rgba(255,255,255,.10);
+  --ui-lo: rgba(0,0,0,.35);
+
+  --code-bg: #0f131a;
+  --code-ink: rgba(255,255,255,.88);
+  --code-inline-bg: rgba(255,255,255,.08);
+  --code-inline-bd: rgba(255,255,255,.18);
+  --code-sel: rgba(125,211,252,.35);
+
+  --tok-c:  rgba(255,255,255,.55);
+  --tok-k:  rgba(255,255,255,.92);
+  --tok-s:  #ff9aa2;
+  --tok-nf: #93c5fd;
+  --tok-nt: #86efac;
+  --tok-na: #fcd34d;
+  --tok-m:  #fbbf24;
+
+  --tex-a: rgba(255,255,255,.04);
+  --tex-b: rgba(255,255,255,.03);
+  --tex-c: rgba(255,255,255,.025);
+  --tex-d: rgba(255,255,255,.05);
+  --tex-e: rgba(255,255,255,.04);
+}
+
+/* Optional explicit light mode (nice for debugging) */
+html[data-theme="light"] .rf {
+  /* no overrides needed; defaults are light */
 }

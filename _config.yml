@@ -3,7 +3,7 @@
 # -------------------------------------------------
 title: Aero2
 description: A design-first Jekyll theme inspired by print layout and early web UI.
-tagline: Confident structure. Clear hierarchy.
+tagline: Strong rules, obvious structure, and confident hierarchy
 
 url: https://example.com
 baseurl: ""
@@ -15,6 +15,10 @@ timezone: America/Denver
 # Theme
 # -------------------------------------------------
 theme: jekyll-theme-aero2
+
+# _config.yml (add these)
+# Use any image you want — PNG works great for “sticker” vibes.
+sticker_left_image: /assets/favicons/android-chrome-192x192.png
 
 plugins:
   - jekyll-seo-tag

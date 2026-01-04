@@ -1,3 +1,4 @@
+/* _sass/retrofood/_contact.scss */
 /* =========================================================
    Contact (content-first, image optional)
    ========================================================= */
@@ -21,7 +22,6 @@
     grid-template-columns: 220px minmax(0, 1fr);
   }
 
-  /* If there is no media, blurb should span full width */
   .rf-contact-hero:not(:has(.rf-contact-media)) {
     grid-template-columns: 1fr;
   }
@@ -49,7 +49,7 @@
   text-align: center;
   font-size: 12px;
   line-height: 1.35;
-  color: rgba(17,17,17,.72);
+  color: var(--ink-soft);
 }
 
 /* Blurb */
@@ -58,7 +58,7 @@
 .rf-contact-blurb p {
   margin: 0 0 10px;
   max-width: 72ch;
-  color: rgba(17,17,17,.86);
+  color: var(--ink-body);
   font-size: 15px;
   line-height: 1.55;
 }
@@ -80,7 +80,7 @@
 .rf-contact-primary-label {
   font-weight: 900;
   font-size: 11px;
-  color: rgba(17,17,17,.70);
+  color: var(--ink-soft);
 }
 
 .rf-contact-primary-link {
@@ -130,7 +130,7 @@
 .rf-contact-note {
   margin: 12px 0 0;
   max-width: 65ch;
-  color: rgba(17,17,17,.78);
+  color: var(--ink-soft);
   font-style: italic;
 }
 

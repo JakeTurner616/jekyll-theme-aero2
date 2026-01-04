@@ -1,9 +1,6 @@
+/* _sass/retrofood/_alerts.scss */
 /* =========================================================
    Alerts (Chirpy-like callouts via kramdown attribute lists)
-   Usage:
-   > Title
-   > Body...
-   {: .alert .alert-tip}
    ========================================================= */
 
 :root .rf {
@@ -34,24 +31,20 @@
   border-right: 2px solid var(--rule);
 }
 
-/* Title row (optional) */
 .rf-prose .alert > :first-child { margin-top: 0; }
 .rf-prose .alert > :last-child { margin-bottom: 0; }
 
-/* Small-caps header feel if you start with **TIP** etc */
 .rf-prose .alert strong:first-child {
   letter-spacing: .14em;
   text-transform: uppercase;
   font-weight: 1000;
 }
 
-/* Type variants */
 .rf-prose .alert-tip::before     { background: var(--a-tip); }
 .rf-prose .alert-info::before    { background: var(--a-info); }
 .rf-prose .alert-warning::before { background: var(--a-warn); }
 .rf-prose .alert-danger::before  { background: var(--a-danger); }
 
-/* Optional: tiny icon stamp using CSS only */
 .rf-prose .alert::after {
   content: attr(data-label);
   position: absolute;
@@ -62,5 +55,5 @@
   line-height: 1;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgba(17,17,17,.65);
+  color: var(--ink-faint);
 }

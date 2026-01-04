@@ -1,6 +1,11 @@
+/* assets/js/aero2.js — ENTIRE UPDATED FILE */
 /* global jQuery */
 (function () {
   "use strict";
+
+  /* =========================================================
+     RF NAV (tabs / mobile menu)
+     ========================================================= */
 
   var NAV_ID = "rf-nav";
   var OPEN = "is-open";
@@ -124,4 +129,73 @@
   } else {
     boot();
   }
+
+  /* =========================================================
+     RF LATEST POSTS — PAGINATION HEIGHT LOCK
+     (prevents page resize when paginating)
+     ========================================================= */
+
+  function lockLatestRailHeight() {
+    var rail = document.querySelector(".rf-rail--latest");
+    if (!rail) return;
+
+    var items = Array.prototype.slice.call(
+      rail.querySelectorAll(".rf-rail-item")
+    );
+    if (!items.length) return;
+
+    var list =
+      rail.querySelector(".rf-rail-list") || items[0].parentElement;
+    if (!list) return;
+
+    list.classList.add("rf-rail-list");
+
+    var perPage = Math.max(
+      1,
+      parseInt(list.dataset.perPage || "6", 10)
+    );
+    var pageCount = Math.max(1, Math.ceil(items.length / perPage));
+
+    var wasHidden = items.map(function (el) {
+      return el.hidden;
+    });
+
+    function showPage(i) {
+      var start = i * perPage;
+      var end = start + perPage;
+      items.forEach(function (el, idx) {
+        el.hidden = !(idx >= start && idx < end);
+      });
+    }
+
+    var maxH = 0;
+    for (var p = 0; p < pageCount; p++) {
+      showPage(p);
+      var h = list.getBoundingClientRect().height;
+      if (h > maxH) maxH = h;
+    }
+
+    items.forEach(function (el, i) {
+      el.hidden = wasHidden[i];
+    });
+
+    list.style.setProperty("--rf-rail-minh", Math.ceil(maxH) + "px");
+  }
+
+  function relock() {
+    var list = document.querySelector(".rf-rail--latest .rf-rail-list");
+    if (list) list.style.removeProperty("--rf-rail-minh");
+    lockLatestRailHeight();
+  }
+
+  window.addEventListener("load", lockLatestRailHeight);
+  window.addEventListener("resize", relock);
+
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    if (t.closest(".rf-rail--latest .rf-pager-btn")) {
+      lockLatestRailHeight();
+    }
+  });
 })();

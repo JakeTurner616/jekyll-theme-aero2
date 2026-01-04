@@ -1,10 +1,11 @@
+<!-- _layouts/default.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>About | Aero2</title>
+<title>About | Aero2-TEST</title>
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="About" />
 <meta property="og:locale" content="en" />
@@ -12,16 +13,35 @@
 <meta property="og:description" content="A design-first Jekyll theme inspired by print layout and early web UI." />
 <link rel="canonical" href="http://localhost:4000/about/" />
 <meta property="og:url" content="http://localhost:4000/about/" />
-<meta property="og:site_name" content="Aero2" />
+<meta property="og:site_name" content="Aero2-TEST" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="About" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"A design-first Jekyll theme inspired by print layout and early web UI.","headline":"About","name":"Aero2","url":"http://localhost:4000/about/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","description":"A design-first Jekyll theme inspired by print layout and early web UI.","headline":"About","name":"Aero2-TEST","url":"http://localhost:4000/about/"}</script>
 <!-- End Jekyll SEO tag -->
 
+
+  <!-- RF: no-flash theme boot -->
+  <script>
+  (() => {
+    try {
+      const KEY = "rf-theme"; // "system" | "light" | "dark"
+      const saved = localStorage.getItem(KEY) || "system";
+      const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+      const resolved = saved === "system" ? (prefersDark ? "dark" : "light") : saved;
+
+      document.documentElement.dataset.theme = resolved;
+      document.documentElement.dataset.themePref = saved;
+      document.documentElement.style.colorScheme = resolved;
+    } catch (e) {}
+  })();
+  </script>
+
   <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
@@ -75,6 +95,21 @@
   .mfp-close:hover { opacity: 1; }
 </style>
 
+<!-- _includes/rf/favicons.html --><link rel="icon" href="/assets/favicons/favicon.ico" sizes="any">
+
+<link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+<!-- Safari pinned tab -->
+<link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#111111">
+
+<!-- Windows tiles -->
+<meta name="msapplication-TileColor" content="#111111">
+<meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
+
+<!-- Browser UI color (you can later update this dynamically from your theme toggle if you want) -->
+<meta name="theme-color" content="#f2f0ea">
+
 </head>
 
 <body class="rf">
@@ -83,13 +118,12 @@
       <!-- _includes/rf/header.html -->
 <header class="rf-header">
   <div class="rf-header-top">
-    <!-- removed right-side sticker image -->
-    <div class="rf-sticker rf-sticker-left" aria-hidden="true"></div>
-
     <div class="rf-brand">
-      <div class="rf-kicker">Confident structure. Clear hierarchy.</div>
+      <div class="rf-kicker">
+        Strong rules, obvious structure, and confident hierarchy
+      </div>
       <a class="rf-logo" href="/">
-        Aero2
+        Aero2-TEST
       </a>
     </div>
   </div>
@@ -98,19 +132,30 @@
     
     
       
-        <a class="rf-tab" href="/">HOME</a>
+        <a class="rf-tab" href="/">
+          HOME
+        </a>
       
-        <a class="rf-tab" href="/Blog/">Blog</a>
+        <a class="rf-tab" href="/Blog/">
+          Blog
+        </a>
       
-        <a class="rf-tab" href="/getting-started/">Get Started</a>
+        <a class="rf-tab" href="/getting-started/">
+          Get Started
+        </a>
       
-        <a class="rf-tab" href="/tags/">Tags</a>
+        <a class="rf-tab" href="/tags/">
+          Tags
+        </a>
       
-        <a class="rf-tab" href="/contact/">CONTACT</a>
+        <a class="rf-tab" href="/contact/">
+          CONTACT
+        </a>
       
     
   </nav>
 </header>
+
 
 
       <div class="rf-frame">
@@ -350,7 +395,7 @@
       </div>
 
       <footer class="rf-footer">
-  <div>© 2026 Aero2</div>
+  <div>© 2026 Aero2-TEST</div>
   <div class="rf-muted">A design-first Jekyll theme inspired by print layout and early web UI.</div>
 </footer>
 
@@ -375,8 +420,6 @@
     const root = document.querySelector(".rf-prose");
     if (!root) return;
 
-    // Wrap eligible images with <a> so Magnific can delegate-click them.
-    // Opt-out by adding: data-no-lightbox="1" on the <img>.
     const imgs = root.querySelectorAll("img.rf-media, .rf-prose img");
     imgs.forEach((img) => {
       if (!(img instanceof HTMLImageElement)) return;
@@ -418,6 +461,8 @@
     });
   })();
   </script>
+
+  <!-- RF: tag filtering (your existing script; unchanged) -->
   <script>
 (() => {
   const $ = window.jQuery;
@@ -431,9 +476,6 @@
 
   function slugOfChip($chip) {
     return String($chip.data("slug") || "");
-  }
-  function tagOfChip($chip) {
-    return String($chip.data("tag") || "");
   }
 
   function setActiveBySlug(slug) {
@@ -463,26 +505,11 @@
     }
   }
 
-  // --- Hash routing ---
-  // We use:
-  //   #/tag/<slug>  => filter
-  //   #/all or empty => show all
   function readRoute() {
     const h = (window.location.hash || "").trim();
-
     if (!h || h === "#" || h === "#/all") return { mode: "all", slug: "" };
-
-    // accept old-style anchors too: #tag-docs
-    if (h.startsWith("#tag-")) {
-      return { mode: "tag", slug: h.slice("#tag-".length) };
-    }
-
-    // new style: #/tag/docs
-    if (h.startsWith("#/tag/")) {
-      const slug = decodeURIComponent(h.slice("#/tag/".length));
-      return { mode: "tag", slug };
-    }
-
+    if (h.startsWith("#tag-")) return { mode: "tag", slug: h.slice("#tag-".length) };
+    if (h.startsWith("#/tag/")) return { mode: "tag", slug: decodeURIComponent(h.slice("#/tag/".length)) };
     return { mode: "all", slug: "" };
   }
 
@@ -496,7 +523,6 @@
     setActiveBySlug(r.mode === "tag" ? r.slug : "");
   }
 
-  // Clicking tag text => set route (y2k “mode switch”)
   $page.on("click", ".rf-tagchip .rf-tag-text", function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -510,7 +536,6 @@
     writeRouteTag(isAlready ? "" : slug);
   });
 
-  // Keyboard accessibility
   $page.on("keydown", ".rf-tagchip .rf-tag-text", function (e) {
     if (e.key !== "Enter" && e.key !== " ") return;
     e.preventDefault();
@@ -525,21 +550,65 @@
     writeRouteTag(isAlready ? "" : slug);
   });
 
-  // Clicking the chip itself (not the text) keeps “jump to section” behavior,
-  // but we ALSO upgrade it to our route so the URL matches the UI mode.
   $page.on("click", ".rf-tagchip", function (e) {
-    if ($(e.target).closest(".rf-tag-text").length) return; // handled above
+    if ($(e.target).closest(".rf-tag-text").length) return;
     const slug = slugOfChip($(this));
     if (slug) writeRouteTag(slug);
   });
 
-  // Listen to back/forward & manual hash edits
   window.addEventListener("hashchange", applyFromHash);
-
-  // Initial load
   applyFromHash();
 })();
-</script>
+  </script>
+
+  <!-- RF: theme toggle behavior -->
+  <script>
+(() => {
+  const KEY = "rf-theme"; // "system" | "light" | "dark"
+  const btn = document.querySelector("[data-rf-theme-toggle]");
+  if (!btn) return;
+
+  const ico = btn.querySelector(".rf-theme-ico");
+  const txt = btn.querySelector(".rf-theme-txt");
+
+  const prefersDarkMQ = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+  const resolve = (pref) => {
+    if (pref !== "system") return pref;
+    const prefersDark = !!(prefersDarkMQ && prefersDarkMQ.matches);
+    return prefersDark ? "dark" : "light";
+  };
+
+  const apply = (pref) => {
+    const theme = resolve(pref);
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.themePref = pref;
+    document.documentElement.style.colorScheme = theme;
+
+    if (ico) ico.textContent = pref === "system" ? "◐" : (theme === "dark" ? "☾" : "☀");
+    if (txt) txt.textContent = pref[0].toUpperCase() + pref.slice(1);
+
+    try { localStorage.setItem(KEY, pref); } catch (e) {}
+  };
+
+  const nextPref = (pref) => (pref === "system" ? "dark" : pref === "dark" ? "light" : "system");
+
+  const saved = (localStorage.getItem(KEY) || document.documentElement.dataset.themePref || "system");
+  apply(saved);
+
+  btn.addEventListener("click", () => {
+    const current = document.documentElement.dataset.themePref || "system";
+    apply(nextPref(current));
+  });
+
+  if (prefersDarkMQ) {
+    prefersDarkMQ.addEventListener("change", () => {
+      const pref = document.documentElement.dataset.themePref || "system";
+      if (pref === "system") apply("system");
+    });
+  }
+})();
+  </script>
 
 </body>
 </html>

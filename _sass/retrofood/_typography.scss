@@ -1,3 +1,4 @@
+/* _sass/retrofood/_typography.scss */
 /* =========================================================
    Article typography
    ========================================================= */
@@ -15,7 +16,7 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 1.55;
-  color: rgba(17,17,17,.9);
+  color: var(--ink-body);
   max-width: 62ch;
 }
 

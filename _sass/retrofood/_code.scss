@@ -1,11 +1,12 @@
+/* _sass/retrofood/_code.scss */
 /* =========================================================
-   Rouge syntax highlighting (ink on paper)
+   Rouge syntax highlighting (theme-driven)
    ========================================================= */
 
 .highlight {
   margin: 14px 0;
   border: 2px solid var(--rule);
-  background: #f7f5ef;
+  background: var(--code-bg);
   overflow: auto;
 }
 
@@ -17,13 +18,13 @@
   font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.45;
-  color: #1a1a1a;
+  color: var(--code-ink);
 }
 
 /* inline code (not inside a code block) */
 .rf-prose code:not(pre code) {
-  background: rgba(255,255,255,.65);
-  border: 1px solid rgba(0,0,0,.25);
+  background: var(--code-inline-bg);
+  border: 1px solid var(--code-inline-bd);
   padding: 0.15em 0.35em;
   font-size: 0.9em;
   font-family: var(--font-mono);
@@ -33,14 +34,14 @@
 .highlight .c,
 .highlight .cm,
 .highlight .c1,
-.highlight .cs { color: #6b6b6b; font-style: italic; }
+.highlight .cs { color: var(--tok-c); font-style: italic; }
 
 .highlight .k,
 .highlight .kc,
 .highlight .kd,
 .highlight .kn,
 .highlight .kp,
-.highlight .kr { color: #000; font-weight: 700; }
+.highlight .kr { color: var(--tok-k); font-weight: 700; }
 
 .highlight .s,
 .highlight .sb,
@@ -49,14 +50,14 @@
 .highlight .s2,
 .highlight .sh,
 .highlight .si,
-.highlight .sx { color: #8b1e1e; }
+.highlight .sx { color: var(--tok-s); }
 
-.highlight .nf { color: #003366; font-weight: 600; }
-.highlight .nt { color: #004b3a; font-weight: 700; }
-.highlight .na { color: #5a2e00; }
+.highlight .nf { color: var(--tok-nf); font-weight: 600; }
+.highlight .nt { color: var(--tok-nt); font-weight: 700; }
+.highlight .na { color: var(--tok-na); }
 
 .highlight .m,
 .highlight .mi,
-.highlight .mf { color: #7a5200; }
+.highlight .mf { color: var(--tok-m); }
 
-.highlight ::selection { background: rgba(242,195,74,.6); }
+.highlight ::selection { background: var(--code-sel); }
