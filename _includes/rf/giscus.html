@@ -10,6 +10,18 @@
     </div>
   </section>
 
+  {%- comment -%}
+  Theme resolution rules:
+  1) If site.giscus.theme is set, pass it through directly (supports:
+     - built-in: "preferred_color_scheme"
+     - custom: "https://.../theme.css"
+     - custom pair: "https://.../light.css,https://.../dark.css"
+     - custom relative: "/assets/giscus/aero2-light.css,/assets/giscus/aero2-dark.css"
+  2) Else default to "preferred_color_scheme"
+  {%- endcomment -%}
+
+  {% assign giscus_theme = site.giscus.theme | default: "preferred_color_scheme" %}
+
   <script
     src="https://giscus.app/client.js"
     data-repo="{{ site.giscus.repo }}"
@@ -21,9 +33,71 @@
     data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
     data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
     data-input-position="{{ site.giscus.input_position | default: 'top' }}"
-    data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+    data-theme="{{ giscus_theme }}"
     data-lang="{{ site.giscus.lang | default: 'en' }}"
     crossorigin="anonymous"
     async>
+  </script>
+
+  <script>
+  (() => {
+    // If the configured theme is NOT a URL/pair, don't try to postMessage override.
+    // (Built-in themes like "light" / "dark" / "preferred_color_scheme" should be left alone.)
+    const configured = {{ giscus_theme | jsonify }};
+    const looksLikeUrl = (s) => /^(https?:\/\/|\/)/.test(s) || s.includes(".css");
+    if (!looksLikeUrl(configured)) return;
+
+    // Convert configured theme string into a { light, dark } pair.
+    // Supports:
+    // - "/assets/x-light.css,/assets/x-dark.css"
+    // - "https://.../light.css,https://.../dark.css"
+    // - "/assets/x.css" (single) -> use for both
+    // - "x.css" (single relative) -> treat as site-relative
+    const toAbs = (p) => {
+      if (!p) return "";
+      if (/^https?:\/\//.test(p)) return p;
+      if (p.startsWith("/")) return window.location.origin + p;
+      // e.g. "assets/giscus/aero2.css"
+      return window.location.origin + "/" + p.replace(/^\.?\//, "");
+    };
+
+    const parts = String(configured).split(",").map(s => s.trim()).filter(Boolean);
+    const light = toAbs(parts[0] || "");
+    const dark  = toAbs(parts[1] || parts[0] || "");
+
+    if (!light) return;
+
+    const currentMode = () => {
+      const v = (document.documentElement.dataset.theme || "").toLowerCase();
+      return v === "dark" ? "dark" : "light";
+    };
+
+    const desiredThemeUrl = () => (currentMode() === "dark" ? (dark || light) : light);
+
+    const postTheme = () => {
+      const iframe = document.querySelector("iframe.giscus-frame");
+      if (!iframe) return false;
+
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: desiredThemeUrl() } } },
+        "https://giscus.app"
+      );
+      return true;
+    };
+
+    // Try a few times after load since the iframe appears async
+    let tries = 0;
+    const tick = () => {
+      const ok = postTheme();
+      if (ok) return;
+      if (++tries > 40) return; // ~4s
+      setTimeout(tick, 100);
+    };
+    tick();
+
+    // React to your theme toggle (dataset changes)
+    const mo = new MutationObserver(() => { postTheme(); });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  })();
   </script>
 {% endif %}

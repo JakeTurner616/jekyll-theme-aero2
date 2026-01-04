@@ -1,0 +1,184 @@
+/* assets/giscus/aero2-light.css */
+/* Aero2 Giscus Theme — LIGHT
+   Target stable giscus hooks + contained Primer utilities.
+*/
+
+/* Fonts inside the iframe */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap");
+
+:root {
+  --a2-ink: #111;
+  --a2-ink-body: rgba(17, 17, 17, 0.90);
+  --a2-ink-muted: rgba(17, 17, 17, 0.68);
+  --a2-ink-faint: rgba(17, 17, 17, 0.62);
+
+  --a2-paper: #f2f0ea;
+  --a2-paper2: #fbfaf6;
+  --a2-rule: #121212;
+
+  --a2-accent: #f2c34a;
+  --a2-accent2: #e1a93a;
+
+  --a2-ui-hi: rgba(255,255,255,.85);
+  --a2-ui-lo: rgba(0,0,0,.08);
+
+  --a2-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --a2-main: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Root wrapper */
+.gsc-main {
+  font-family: var(--a2-main) !important;
+  color: var(--a2-ink-body) !important;
+  background: transparent !important;
+}
+
+/* Section headers (0 comments / 0 reactions) */
+.gsc-reactions-count,
+.gsc-comments-count {
+  margin: 0 !important;
+  font-weight: 900 !important;
+  font-size: 11px !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase !important;
+  color: var(--a2-ink-faint) !important;
+}
+
+/* Links in general (keep subtle) */
+.gsc-main a {
+  color: inherit !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .16em !important;
+}
+
+/* The “Add reactions” summary link */
+.gsc-reactions-button {
+  color: var(--a2-ink-muted) !important;
+  text-decoration: none !important;
+}
+.gsc-reactions-button:hover {
+  text-decoration: underline !important;
+}
+
+/* Reaction popover */
+.gsc-reactions-popover {
+  background: var(--a2-paper2) !important;
+  border: 2px solid var(--a2-rule) !important;
+  box-shadow: none !important;
+}
+
+/* Comment box (this is the big form) */
+.gsc-comment-box {
+  background: var(--a2-paper2) !important;
+  border: 2px solid var(--a2-rule) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+/* Tabs strip (Write / Preview) */
+.gsc-comment-box-tabs {
+  background: linear-gradient(var(--a2-paper2), color-mix(in oklab, var(--a2-paper2), var(--a2-paper) 40%)) !important;
+  border-bottom: 2px solid var(--a2-rule) !important;
+}
+
+/* The actual tab buttons are generic <button> with utility classes.
+   We keep it scoped to the tabs row. */
+.gsc-comment-box-tabs button {
+  font-family: var(--a2-main) !important;
+  font-weight: 900 !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+
+  border: 2px solid var(--a2-rule) !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+
+  background: var(--a2-paper2) !important;
+  color: var(--a2-ink-body) !important;
+  box-shadow: none !important;
+}
+
+/* Inactive tab tends to have border-transparent; force a lighter look */
+.gsc-comment-box-tabs button.color-text-secondary {
+  opacity: .75 !important;
+}
+
+/* Textarea */
+.gsc-comment-box-textarea {
+  font-family: var(--a2-main) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+
+  background: var(--a2-paper2) !important;
+  color: var(--a2-ink-body) !important;
+
+  border: 2px solid var(--a2-rule) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  padding: 10px 12px !important;
+  min-height: 140px !important;
+}
+
+/* Markdown hint row */
+.gsc-comment-box-markdown-hint {
+  color: var(--a2-ink-faint) !important;
+}
+
+/* Bottom bar */
+.gsc-comment-box-bottom {
+  border-top: 2px solid var(--a2-rule) !important;
+  background: linear-gradient(var(--a2-paper2), color-mix(in oklab, var(--a2-paper2), var(--a2-paper) 35%)) !important;
+  padding: 8px 10px !important;
+}
+
+/* Sign out link */
+.gsc-comment-box-bottom .link-secondary {
+  color: var(--a2-ink-muted) !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+}
+
+/* Primary submit button ONLY (scope tightly) */
+.gsc-comment-box-bottom .btn.btn-primary {
+  border: 2px solid var(--a2-rule) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  background: linear-gradient(var(--a2-accent), var(--a2-accent2)) !important;
+  color: #111 !important;
+
+  font-weight: 1000 !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+
+  padding: 8px 12px !important;
+}
+
+/* Disabled state */
+.gsc-comment-box-bottom .btn.btn-primary[disabled],
+.gsc-comment-box-bottom .btn.btn-primary:disabled {
+  opacity: .55 !important;
+  filter: grayscale(.2) !important;
+}
+
+/* Timeline container (comments list) */
+.gsc-timeline {
+  margin-top: 12px !important;
+  padding-top: 10px !important;
+  border-top: 2px solid var(--a2-rule) !important;
+}
+
+/* Individual comments */
+.gsc-comment {
+  border: 2px solid var(--a2-rule) !important;
+  background: var(--a2-paper2) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}

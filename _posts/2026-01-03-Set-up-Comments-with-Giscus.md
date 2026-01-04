@@ -75,8 +75,6 @@ Fill out the form:
   - Reactions: optional
   - Emit metadata: disabled (recommended)
 
-- **Theme**
-  - Use `preferred_color_scheme`
 
 Once filled out, the page will generate a `<script>` tag.
 
@@ -115,8 +113,6 @@ giscus:
   emit_metadata: "0"
   input_position: "bottom"
 
-  # Theme + language
-  theme: "preferred_color_scheme"
   lang: "en"
 ````
 
@@ -159,15 +155,3 @@ comments: true
 ```
 
 The theme automatically renders Giscus at the bottom of the page when this flag is present.
-
----
-
-## Theme + dark mode support
-
-Recommended setting:
-
-```yml
-theme: "preferred_color_scheme"
-```
-
-This follows light mode / dark mode system preference
