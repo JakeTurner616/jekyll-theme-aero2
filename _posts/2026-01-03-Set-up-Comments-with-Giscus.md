@@ -116,34 +116,6 @@ giscus:
   lang: "en"
 ````
 
-### Where these values come from
-
-From the generated Giscus script:
-
-```html
-<script
-  data-repo="yourname/yourrepo"
-  data-repo-id="R_kgDO..."
-  data-category="Comments"
-  data-category-id="DIC_kwDO..."
-  data-mapping="og:title">
-</script>
-```
-
-Map them exactly:
-
-| Giscus script attribute | `_config.yml` key    |
-| ----------------------- | -------------------- |
-| `data-repo`             | `giscus.repo`        |
-| `data-repo-id`          | `giscus.repo_id`     |
-| `data-category`         | `giscus.category`    |
-| `data-category-id`      | `giscus.category_id` |
-| `data-mapping`          | `giscus.mapping`     |
-
-No guessing required.
-
----
-
 ## Enable comments per post
 
 Comments are **opt-in**.

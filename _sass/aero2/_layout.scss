@@ -2,18 +2,24 @@
 /* Paper texture (no image needed) */
 .rf-bg {
   min-height: 100vh;
+
   background:
     radial-gradient(1200px 900px at 20% 15%, var(--tex-a), transparent 55%),
     radial-gradient(900px 700px at 80% 30%, var(--tex-b), transparent 55%),
+
+    /* paper grain lines */
     repeating-linear-gradient(0deg, var(--tex-c) 0 1px, transparent 1px 6px),
-    radial-gradient(circle at 20% 30%, var(--tex-d) 0 1px, transparent 2px),
-    radial-gradient(circle at 70% 60%, var(--tex-e) 0 1px, transparent 2px),
+
+
+
     var(--paper);
 
-  /* key: avoid seams + ensure full coverage */
-  background-attachment: fixed;
-  background-repeat: repeat;
+  /* don’t repeat the entire multi-layer stack */
+  background-repeat: no-repeat;
   background-size: auto;
+
+  /* if you want the “paper stays put” feel, keep it; otherwise remove */
+  background-attachment: fixed;
 
   padding: 28px 14px 60px;
 }

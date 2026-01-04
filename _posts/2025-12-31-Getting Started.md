@@ -1,6 +1,7 @@
 ---
 layout: post
 permalink: /getting-started/
+author: Jake Turner
 categories: [Site, Tutorial]
 title: Getting Started
 description: >
