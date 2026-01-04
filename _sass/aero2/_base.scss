@@ -1,10 +1,34 @@
 /* _sass/aero2/_base.scss */
-html { min-width: 350px; }
 
+html {
+  min-width: 350px;
+}
+
+/* =========================================================
+   iOS / Safari browser chrome + color scheme
+   Fixes light URL bar in dark mode
+   ========================================================= */
+
+/* Let the UA know we support both schemes */
+:root {
+  color-scheme: light dark;
+}
+
+/* Safari paints behind the URL / home bar from html/body */
+html,
+body {
+  background-color: var(--browser-chrome, #f2f0ea);
+}
+
+/* Body stays transparent — rf-bg paints the page */
+body {
+  background: transparent;
+}
 
 /* =========================================================
    Retro Food / Newspaper Menu UI — THEME TOKENS
    ========================================================= */
+
 .rf {
   /* Fonts */
   --font-main: "Source Sans 3",
@@ -65,6 +89,9 @@ html { min-width: 350px; }
   --tex-d: rgba(0,0,0,.04);
   --tex-e: rgba(0,0,0,.035);
 
+  /* Browser chrome color (light) */
+  --browser-chrome: var(--paper);
+
   font-family: var(--font-main);
   color: var(--ink);
 }
@@ -72,6 +99,7 @@ html { min-width: 350px; }
 /* =========================================================
    Dark theme override (drives EVERYTHING via vars)
    ========================================================= */
+
 html[data-theme="dark"] .rf {
   --ink: rgba(255,255,255,.92);
   --paper: #0f1114;
@@ -110,9 +138,15 @@ html[data-theme="dark"] .rf {
   --tex-c: rgba(255,255,255,.025);
   --tex-d: rgba(255,255,255,.05);
   --tex-e: rgba(255,255,255,.04);
+
+  /* Browser chrome color (dark) */
+  --browser-chrome: var(--paper);
 }
 
-/* Optional explicit light mode (nice for debugging) */
+/* =========================================================
+   Optional explicit light mode (debug / force)
+   ========================================================= */
+
 html[data-theme="light"] .rf {
-  /* no overrides needed; defaults are light */
+  --browser-chrome: var(--paper);
 }
