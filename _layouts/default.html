@@ -78,9 +78,17 @@
                 {{ content }}
               </div>
 
-              {% if page.layout == "post" and page.comments != false %}
+              {%- assign show_comments = false -%}
+              {%- if page.comments == true -%}
+                {%- assign show_comments = true -%}
+              {%- elsif page.layout == "post" and page.comments != false -%}
+                {%- assign show_comments = true -%}
+              {%- endif -%}
+
+              {%- if show_comments -%}
                 {% include rf/giscus.html %}
-              {% endif %}
+              {%- endif -%}
+
             </article>
           </main>
 
@@ -105,7 +113,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 
   <!-- Magnific Popup -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
@@ -163,168 +171,68 @@
   })();
   </script>
 
-
-<script>
-$(function () {
-  $(document).tooltip({
-    items: ".rf-tt,[data-tooltip],[title]",
-    content: function () {
-      // Prefer data-tooltip if present, otherwise fall back to title.
-      return $(this).attr("data-tooltip") || $(this).attr("title");
-    },
-    show: { effect: "fadeIn", duration: 500 },
-    hide: { effect: "fadeOut", duration: 500 },
-    track: true
-  });
-});
-</script>
-
-  <!-- RF: tag filtering (your existing script; unchanged) -->
   <script>
-(() => {
-  const $ = window.jQuery;
-  if (!$) return;
-
-  const $page = $(".rf-tagpage[data-tagpage='1']");
-  if (!$page.length) return;
-
-  const $chips = $page.find(".rf-tagchip");
-  const $groups = $page.find(".rf-taggroup");
-
-  function slugOfChip($chip) {
-    return String($chip.data("slug") || "");
-  }
-
-  function setActiveBySlug(slug) {
-    if (!slug) {
-      $groups.show();
-      $chips.removeClass("is-active");
-      return;
-    }
-
-    let found = false;
-
-    $groups.each(function () {
-      const s = String($(this).data("slug") || "");
-      const show = s === slug;
-      $(this).toggle(show);
-      if (show) found = true;
+  $(function () {
+    $(document).tooltip({
+      items: ".rf-tt,[data-tooltip],[title]",
+      content: function () {
+        return $(this).attr("data-tooltip") || $(this).attr("title");
+      },
+      show: { effect: "fadeIn", duration: 500 },
+      hide: { effect: "fadeOut", duration: 500 },
+      track: true
     });
-
-    $chips.each(function () {
-      const s = slugOfChip($(this));
-      $(this).toggleClass("is-active", s === slug);
-    });
-
-    if (found) {
-      const el = document.getElementById(`tag-${slug}`);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-
-  function readRoute() {
-    const h = (window.location.hash || "").trim();
-    if (!h || h === "#" || h === "#/all") return { mode: "all", slug: "" };
-    if (h.startsWith("#tag-")) return { mode: "tag", slug: h.slice("#tag-".length) };
-    if (h.startsWith("#/tag/")) return { mode: "tag", slug: decodeURIComponent(h.slice("#/tag/".length)) };
-    return { mode: "all", slug: "" };
-  }
-
-  function writeRouteTag(slug) {
-    const next = slug ? `#/tag/${encodeURIComponent(slug)}` : "#/all";
-    if (window.location.hash !== next) window.location.hash = next;
-  }
-
-  function applyFromHash() {
-    const r = readRoute();
-    setActiveBySlug(r.mode === "tag" ? r.slug : "");
-  }
-
-  $page.on("click", ".rf-tagchip .rf-tag-text", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const $chip = $(this).closest(".rf-tagchip");
-    const slug = slugOfChip($chip);
-
-    const r = readRoute();
-    const isAlready = (r.mode === "tag" && r.slug === slug);
-
-    writeRouteTag(isAlready ? "" : slug);
   });
-
-  $page.on("keydown", ".rf-tagchip .rf-tag-text", function (e) {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    e.preventDefault();
-    e.stopPropagation();
-
-    const $chip = $(this).closest(".rf-tagchip");
-    const slug = slugOfChip($chip);
-
-    const r = readRoute();
-    const isAlready = (r.mode === "tag" && r.slug === slug);
-
-    writeRouteTag(isAlready ? "" : slug);
-  });
-
-  $page.on("click", ".rf-tagchip", function (e) {
-    if ($(e.target).closest(".rf-tag-text").length) return;
-    const slug = slugOfChip($(this));
-    if (slug) writeRouteTag(slug);
-  });
-
-  window.addEventListener("hashchange", applyFromHash);
-  applyFromHash();
-})();
   </script>
 
   <!-- RF: theme toggle behavior -->
   <script>
-(() => {
-  const KEY = "rf-theme"; // "system" | "light" | "dark"
-  const btn = document.querySelector("[data-rf-theme-toggle]");
-  if (!btn) return;
+  (() => {
+    const KEY = "rf-theme";
+    const btn = document.querySelector("[data-rf-theme-toggle]");
+    if (!btn) return;
 
-  const ico = btn.querySelector(".rf-theme-ico");
-  const txt = btn.querySelector(".rf-theme-txt");
+    const ico = btn.querySelector(".rf-theme-ico");
+    const txt = btn.querySelector(".rf-theme-txt");
 
-  const prefersDarkMQ = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    const prefersDarkMQ = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
-  const resolve = (pref) => {
-    if (pref !== "system") return pref;
-    const prefersDark = !!(prefersDarkMQ && prefersDarkMQ.matches);
-    return prefersDark ? "dark" : "light";
-  };
+    const resolve = (pref) => {
+      if (pref !== "system") return pref;
+      const prefersDark = !!(prefersDarkMQ && prefersDarkMQ.matches);
+      return prefersDark ? "dark" : "light";
+    };
 
-  const apply = (pref) => {
-    const theme = resolve(pref);
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.dataset.themePref = pref;
-    document.documentElement.style.colorScheme = theme;
+    const apply = (pref) => {
+      const theme = resolve(pref);
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.dataset.themePref = pref;
+      document.documentElement.style.colorScheme = theme;
 
-    if (ico) ico.textContent = pref === "system" ? "◐" : (theme === "dark" ? "☾" : "☀");
-    if (txt) txt.textContent = pref[0].toUpperCase() + pref.slice(1);
+      if (ico) ico.textContent = pref === "system" ? "◐" : (theme === "dark" ? "☾" : "☀");
+      if (txt) txt.textContent = pref[0].toUpperCase() + pref.slice(1);
 
-    try { localStorage.setItem(KEY, pref); } catch (e) {}
-  };
+      try { localStorage.setItem(KEY, pref); } catch (e) {}
+    };
 
-  const nextPref = (pref) => (pref === "system" ? "dark" : pref === "dark" ? "light" : "system");
+    const nextPref = (pref) =>
+      (pref === "system" ? "dark" : pref === "dark" ? "light" : "system");
 
-  const saved = (localStorage.getItem(KEY) || document.documentElement.dataset.themePref || "system");
-  apply(saved);
+    const saved = localStorage.getItem(KEY) || "system";
+    apply(saved);
 
-  btn.addEventListener("click", () => {
-    const current = document.documentElement.dataset.themePref || "system";
-    apply(nextPref(current));
-  });
-
-  if (prefersDarkMQ) {
-    prefersDarkMQ.addEventListener("change", () => {
-      const pref = document.documentElement.dataset.themePref || "system";
-      if (pref === "system") apply("system");
+    btn.addEventListener("click", () => {
+      const current = document.documentElement.dataset.themePref || "system";
+      apply(nextPref(current));
     });
-  }
-})();
+
+    if (prefersDarkMQ) {
+      prefersDarkMQ.addEventListener("change", () => {
+        const pref = document.documentElement.dataset.themePref || "system";
+        if (pref === "system") apply("system");
+      });
+    }
+  })();
   </script>
 
 </body>

@@ -2,11 +2,12 @@
 layout: page
 title: Home
 sidebar_show_tags: true
+comments: true
 ---
 
 # Aero2
 
-Aero2 is a **design-first** jekyll web theme built around layout, typography, and interaction the way **printed media** and **early web UI** did, while still respecting modern expectations for responsiveness, accessibility, SEO, and performance.
+[Aero2](https://github.com/JakeTurner616/jekyll-theme-aero2/) is a **design-first** jekyll web theme built around layout, typography, and interaction the way **printed media** and **early web UI** did, while still respecting modern expectations for responsiveness, accessibility, SEO, and performance.
 
 ---
 

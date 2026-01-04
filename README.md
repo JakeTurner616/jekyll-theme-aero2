@@ -1,43 +1,38 @@
-# Aero2 — Jekyll Theme
+# Aero2
 
-**Aero2** is a design-first Jekyll theme built around **layout, typography, and clarity** — inspired by printed media and early web UI, but implemented with modern Jekyll best practices.
-
-The goal is not to be flashy or over-engineered, but to feel **confident, legible, and durable**.
+[Aero2](https://github.com/JakeTurner616/jekyll-theme-aero2/) is a **design-first** jekyll web theme built around layout, typography, and interaction the way **printed media** and **early web UI** did, while still respecting modern expectations for responsiveness, accessibility, SEO, and performance.
 
 ---
 
-## Philosophy
+## Intentional simplicity
 
-Aero2 intentionally avoids features that dilute design:
+Aero2 avoids features that dilute the design:
 
-- No animation for animation’s sake  
-- No component soup  
-- No hidden or ambiguous interactions  
+- No animations
+- No “component soup”  
+- No hidden interactions  
+- Light and dark mode
+
 
 If something moves, collapses, or changes state, it does so **clearly and predictably**.
 
-This keeps the theme:
-- Easy to extend
-- Easy to reason about
-- Hard to accidentally break
+The use of **jQuery is intentional** to align with the theme’s old-web sensibility
+
+This makes the theme easy to extend, easy to read, and hard to break.
 
 ---
 
-## Best Use Cases
+## What this theme is for
 
 Aero2 works best for:
-
 - Writing-heavy sites
-- Journals and blogs
-- Documentation
-- Personal or project sites that value structure and hierarchy
-- Anyone who wants their site to feel *designed*, not assembled
+- Journals, and documentation
+- Projects that value clarity
+- Customizablility as a dual column layout base template.
 
 ---
 
-## Installation
+## The goal
 
-### 1. Add the theme to your Gemfile
-
-```ruby
-gem "jekyll-theme-aero2"
+Aero2 is trying to look **confident**, **legible**, and **considered** —  
+and to keep working the same way for a long time.
