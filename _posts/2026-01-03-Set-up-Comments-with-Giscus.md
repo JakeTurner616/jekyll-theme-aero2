@@ -7,10 +7,8 @@ comments: false
 author: Jake Turner
 ---
 
-Giscus is a lightweight, open-source comment system powered by **GitHub Discussions**.  
-There’s no database, no ads, and no tracking beyond what GitHub already provides.
-
-If your site is hosted on GitHub Pages, this is the cleanest comment solution available.
+Giscus is a lightweight, open-source comment system powered by **GitHub Discussions**.
+If your site is hosted on GitHub Pages, this is a very clean and easy comment solution.
 
 ---
 
@@ -110,7 +108,7 @@ giscus:
   category_id: "CATEGORY_ID_FROM_GISCUS_APP"
 
   # Page ↔ Discussion mapping
-  mapping: "pathname"
+  mapping: "og:title"
 
   # Optional UI behavior
   reactions_enabled: "1"
@@ -132,7 +130,7 @@ From the generated Giscus script:
   data-repo-id="R_kgDO..."
   data-category="Comments"
   data-category-id="DIC_kwDO..."
-  data-mapping="pathname">
+  data-mapping="og:title">
 </script>
 ```
 
@@ -150,7 +148,7 @@ No guessing required.
 
 ---
 
-## 6) Enable comments per post
+## Enable comments per post
 
 Comments are **opt-in**.
 
@@ -173,20 +171,3 @@ theme: "preferred_color_scheme"
 ```
 
 This follows light mode / dark mode system preference
-
----
-
-## Moderation workflow
-
-All comments live inside GitHub:
-
-* Moderate via GitHub Discussions
-* Lock threads
-* Delete spam
-* Ban users
-
-No external admin panel required.
-
----
-
-If your site already lives on GitHub, Giscus fits perfectly.
