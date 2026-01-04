@@ -1,4 +1,4 @@
-/* _sass/retrofood/_sidebar.scss */
+/* _sass/aero2/_sidebar.scss */
 /* =========================================================
    Sidebar cards (menu items)
    ========================================================= */
@@ -177,7 +177,29 @@
   flex-direction: column;
   gap: 12px;
   min-height: 0;
-  height: 100%;
+
+  /* KEY: do NOT stretch to the sticky column height */
+  height: auto;
+}
+
+/* Keep TOC from growing; allow internal scroll when long */
+.rf-side-stack .rf-toc {
+  flex: 0 0 auto;
+  max-height: clamp(160px, 38dvh, 520px);
+}
+
+/* Optional: make any rail body match your widget look */
+.rf-rail-body {
+  border: 2px solid var(--rule);
+  background: var(--paper2);
+  padding: 10px;
+}
+
+/* Sticky wrapper stays the same */
+.rf-side {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100dvh - 32px);
 }
 
 .rf-rail--latest {
@@ -196,17 +218,6 @@
 }
 @supports (overflow: clip) {
   .rf-toc-list { scrollbar-gutter: auto; }
-}
-.rf-side-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 0;
-  height: 100%;
-}
-
-.rf-rail--latest {
-  flex: 0 0 auto;
 }
 
 /* KEY CHANGE:

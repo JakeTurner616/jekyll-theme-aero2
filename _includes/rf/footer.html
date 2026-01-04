@@ -1,4 +1,25 @@
 <footer class="rf-footer">
-  <div>© {{ "now" | date: "%Y" }} {{ site.title }}</div>
-  <div class="rf-muted">{{ site.description }}</div>
+  <div>
+    {% assign author_name = site.author.name | default: site.author %}
+    {% assign lic_short  = site.license_short | default: "MIT" %}
+    {% assign lic_label  = site.license_label | default: "License" %}
+
+    {% capture lic_tip %}
+      {{ site.license_tip | default: "Feel free to use, modify, and re-ship the code :)" }}
+    {% endcapture %}
+
+    {% capture footer_text %}
+      © {{ author_name }} {{ "now" | date: "%Y" }} · {{ lic_short }}
+    {% endcapture %}
+
+    {% include rf/tooltip.html
+      text=footer_text
+      tip=lic_tip
+      label=lic_label
+    %}
+  </div>
+
+  <div class="rf-muted">
+    {{ site.description }}
+  </div>
 </footer>

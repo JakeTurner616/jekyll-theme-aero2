@@ -3,10 +3,16 @@
 # -------------------------------------------------
 title: Aero2
 description: A design-first Jekyll theme inspired by print layout and early web UI.
-tagline: Strong rules, obvious structure, and confident hierarchy
+tagline: A design-first Jekyll theme inspired by print layout and early web UI.
 
 url: https://example.com
 baseurl: ""
+author: Jake Turner
+
+license_label: License
+license_short: MIT
+license_tip: "MIT License — unless otherwise noted. Code samples may be reused with attribution."
+
 
 lang: en
 timezone: America/Denver

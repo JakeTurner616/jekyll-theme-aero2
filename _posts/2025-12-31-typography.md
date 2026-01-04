@@ -116,3 +116,7 @@ Display:
 $$
 \int_0^\infty e^{-x^2}\,dx=\frac{\sqrt{\pi}}{2}
 $$
+
+## Comments
+
+`comments: true` to toggle giscus comment rendering (requires extra setup)

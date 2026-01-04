@@ -1,13 +1,14 @@
 ---
 layout: post
 permalink: /getting-started/
+categories: [Site, Tutorial]
 title: Getting Started
 description: >
   This post contains quickstart information, and examples for building the theme.
 tags: [getting started, docs]
 ---
 
-## 1) Clone the repo
+## Clone the repo
 
 ```bash
 git clone https://github.com/YOUR_NAME/YOUR_REPO.git
@@ -16,14 +17,14 @@ cd YOUR_REPO
 
 ---
 
-## 2) Install dependencies
+## Install dependencies
 
 ```bash
 bundle install
 ```
 ---
 
-## 3) Run locally
+## Run locally
 
 ```bash
 bundle exec jekyll serve
@@ -37,7 +38,7 @@ http://localhost:4000
 
 ---
 
-## 4) Build production output
+## Build production output
 
 ```bash
 JEKYLL_ENV=production bundle exec jekyll build
@@ -53,11 +54,11 @@ This is exactly what GitHub Pages will serve.
 
 ---
 
-## 5) Deploy to GitHub Pages (manual or CD)
+## Deploy to GitHub Pages (manual or CD)
 
 This repo uses **manual deployment** via GitHub Actions but CD can also be set to run on branch push.
 
-### A) Push your changes
+### Push your changes
 
 ```bash
 git add -A
@@ -67,7 +68,7 @@ git push
 
 ---
 
-## 6) URLs
+## URLs
 
 In `_config.yml`:
 
@@ -87,7 +88,7 @@ baseurl: "/repo"
 
 The theme already uses `relative_url`, so links and assets will work correctly.
 
-### 7) Run the deploy workflow
+### Run the deploy workflow
 
 On GitHub:
 

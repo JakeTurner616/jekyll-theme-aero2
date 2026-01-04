@@ -1,0 +1,12 @@
+/* _sass/aero2/_core.scss */
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper); /* fallback behind rf-bg */
+}
+
+img { max-width: 100%; height: auto; }
+a { color: inherit; }

@@ -1,8 +1,16 @@
 {%- comment -%}
 Uniform tag cloud across posts + pages (no plugins)
-- Clicking the tag text toggles filtering
-- Chip still links to the tag section for normal navigation
+- On the tag page: clicking tag text toggles filtering (your JS)
+- Everywhere else: chips link to the tag page anchor
 {%- endcomment -%}
+
+{%- comment -%}
+Resolve the tag index page URL:
+- Prefer a page with front matter: tagpage: 1
+- Fallback: /tags/
+{%- endcomment -%}
+{%- assign _tagpage = site.pages | where_exp: "p", "p.tagpage == 1" | first -%}
+{%- assign tags_page_url = _tagpage.url | default: "/tags/" -%}
 
 {%- assign all_tags = "" -%}
 
@@ -47,7 +55,7 @@ Uniform tag cloud across posts + pages (no plugins)
       -%}
 
       <a class="rf-tag rf-tagchip"
-         href="#tag-{{ slug }}"
+         href="{{ tags_page_url | relative_url }}#tag-{{ slug }}"
          data-tag="{{ tag | escape }}"
          data-slug="{{ slug | escape }}"
          aria-label="{{ tag }} ({{ c }})">

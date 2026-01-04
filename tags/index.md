@@ -1,6 +1,7 @@
 ---
 layout: retro
 title: Tags
+tagpage: 1
 permalink: /tags/
 ---
 

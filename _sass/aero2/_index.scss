@@ -1,0 +1,20 @@
+/* _sass/aero2/_index.scss */
+/* =========================================================
+   aero2 bundle — module-safe barrel file
+   ========================================================= */
+
+@forward "core";
+@forward "base";
+@forward "layout";
+@forward "header-tabs";
+@forward "typography";
+@forward "sidebar";
+@forward "footer";
+@forward "code";
+@forward "alerts";
+@forward "responsive";
+@forward "toc";
+@forward "media";
+@forward "contact";
+@forward "tags";
+@forward "tooltips";

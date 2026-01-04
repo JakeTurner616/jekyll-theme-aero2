@@ -12,6 +12,11 @@
   {% assign render_count = max_items %}
 {% endif %}
 
+{% assign show_tags = false %}
+{% if page.url == "/" or page.sidebar_show_tags == true %}
+  {% assign show_tags = true %}
+{% endif %}
+
 <div class="rf-side-stack">
   {% if toc_enabled and page.layout == "post" %}
     {% include rf/toc.html %}
@@ -49,9 +54,9 @@
 
           <div class="rf-card-body rf-card-body--post">
             {% assign blurb = post.description | default: post.excerpt %}
-<p class="rf-excerpt">
-  {{ blurb | strip_html | strip_newlines | truncate: 140 }}
-</p>
+            <p class="rf-excerpt">
+              {{ blurb | strip_html | strip_newlines | truncate: 140 }}
+            </p>
           </div>
 
           <div class="rf-pricebar">
@@ -76,6 +81,19 @@
       </div>
     {% endif %}
   </section>
+
+  {% if show_tags %}
+    <section class="rf-rail rf-rail--tags">
+      <div class="rf-rail-head">
+        <div class="rf-rail-kicker">BROWSE</div>
+        <h2 class="rf-rail-title">Tags</h2>
+      </div>
+
+      <div class="rf-rail-body">
+        {% include rf/tag-cloud.html %}
+      </div>
+    </section>
+  {% endif %}
 </div>
 
 <script>
@@ -104,8 +122,7 @@
     const end = start + perPage;
 
     for (let i = 0; i < items.length; i++) {
-      const show = i >= start && i < end;
-      items[i].hidden = !show;
+      items[i].hidden = !(i >= start && i < end);
     }
 
     status.textContent = `${page + 1} / ${pages}`;
