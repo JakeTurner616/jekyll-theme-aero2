@@ -1,0 +1,9 @@
+<!-- _includes/rf/tooltip.html -->
+<span
+  class="rf-tt"
+  tabindex="0"
+  data-tooltip="{{ include.tip | escape }}"
+  {% if include.label %}data-tooltip-label="{{ include.label | escape }}"{% endif %}
+>
+  {{ include.text }}
+</span>

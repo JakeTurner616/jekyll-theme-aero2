@@ -1,59 +1,103 @@
 /* _sass/retrofood/_contact.scss */
 /* =========================================================
-   Contact (content-first, image optional)
+   Contact (cards-first, image as a real card)
    ========================================================= */
 
 .rf-contact-head { margin-bottom: 12px; }
 
-.rf-contact-hero {
-  margin: 0 0 12px;
-  padding: 12px;
-  border: 2px solid var(--rule);
-  background: var(--paper2);
+/* =========================================================
+   Contact grid (cards)
+   ========================================================= */
 
+.rf-contact-grid {
   display: grid;
   gap: 12px;
-  align-items: start;
 }
 
-/* Only become two-column when an image exists and screen is wide */
+/* Desktop: 2-column card grid */
 @media (min-width: 860px) {
-  .rf-contact-hero {
-    grid-template-columns: 220px minmax(0, 1fr);
-  }
-
-  .rf-contact-hero:not(:has(.rf-contact-media)) {
-    grid-template-columns: 1fr;
+  .rf-contact-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
   }
 }
 
-/* Media block */
+/* Card body baseline: don't force tall cards */
+.rf-contact-card .rf-card-body {
+  min-height: auto;
+  display: block;
+}
+
+/* Intro card (blurb) can span full width on desktop */
+@media (min-width: 860px) {
+  .rf-contact-card--intro {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Image card becomes “two cards” on desktop */
+@media (min-width: 860px) {
+  .rf-contact-card--image {
+    grid-row: span 2;
+  }
+}
+
+/* =========================================================
+   Image / avatar card internals
+   ========================================================= */
+
+/* Stable avatar sizing variable */
+.rf-contact-card--image {
+  --avatar: clamp(150px, 18vw, 220px);
+}
+
 .rf-contact-media {
   margin: 0;
-  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
 }
 
+/* Reserve space BEFORE image loads (prevents layout shift) */
+.rf-contact-card--image .rf-contact-media > a {
+  display: block;
+  width: var(--avatar);
+  aspect-ratio: 1 / 1;
+}
+
+/* Avatar image fills the reserved square */
 .rf-contact-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+
   border: 2px solid var(--rule);
-  border-radius: 14px;
-  background: #fff;
+  border-radius: 50%;
+  background: var(--paper2);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.35),
+    0 1px 0 rgba(0,0,0,.06);
 }
 
-/* Caption: stable, centered */
+/* Caption styling */
 .rf-contact-caption {
-  margin: 8px auto 0;
-  max-width: 52ch;
+  margin: 0;
+  max-width: 40ch;
   text-align: center;
   font-size: 12px;
   line-height: 1.35;
   color: var(--ink-soft);
 }
 
-/* Blurb */
-.rf-contact-blurb { min-width: 0; }
+/* =========================================================
+   Blurb / text styles
+   ========================================================= */
 
 .rf-contact-blurb p {
   margin: 0 0 10px;
@@ -70,7 +114,7 @@
   flex-wrap: wrap;
   gap: 10px;
   align-items: baseline;
-  margin: 0;
+  margin: 10px 0 0;
 
   font-family: var(--font-mono);
   text-transform: uppercase;
@@ -93,33 +137,7 @@
   word-break: break-word;
 }
 
-/* =========================================================
-   Contact grid (cards)
-   ========================================================= */
-
-.rf-contact-grid {
-  display: grid;
-  gap: 12px;
-}
-
-@media (min-width: 860px) {
-  .rf-contact-grid { grid-template-columns: 1fr 1fr; }
-}
-
-.rf-contact-card .rf-card-body {
-  min-height: auto;
-  display: block;
-}
-
-.rf-contact-line {
-  margin: 10px 0 0;
-  font-family: var(--font-mono);
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
+/* Shared link styling */
 .rf-contact-link {
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -134,7 +152,10 @@
   font-style: italic;
 }
 
-/* Contact page only: hide the generic posthead chrome */
+/* =========================================================
+   Contact page only
+   ========================================================= */
+
 .page-contact .rf-posthead,
 .page-contact .rf-description {
   display: none;

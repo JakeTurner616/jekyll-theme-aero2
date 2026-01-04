@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Home | Aero2-TEST</title>
+<title>Home | Aero2</title>
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Home" />
 <meta property="og:locale" content="en" />
@@ -13,12 +13,12 @@
 <meta property="og:description" content="A design-first Jekyll theme inspired by print layout and early web UI." />
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
-<meta property="og:site_name" content="Aero2-TEST" />
+<meta property="og:site_name" content="Aero2" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Home" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"A design-first Jekyll theme inspired by print layout and early web UI.","headline":"Home","name":"Aero2-TEST","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","description":"A design-first Jekyll theme inspired by print layout and early web UI.","headline":"Home","name":"Aero2","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -39,9 +39,7 @@
   </script>
 
   <link rel="stylesheet" href="/assets/css/style.css">
-  
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
@@ -65,29 +63,33 @@
 
   /* Paper-ish frame around the image */
   .mfp-figure {
-    background: #fbfaf6;
-    border: 2px solid #121212;
+    background: var(--paper2);
+    border: 2px solid var(--rule);
     padding: 10px;
+
   }
 
-/* TRUE center caption: remove counter-reserve padding and force full width */
-.mfp-bottom-bar{
-  left: 0;
-  width: 100%;
+  /* TRUE center caption: remove counter-reserve padding and force full width */
+  .mfp-bottom-bar{
+    left: 0;
+    width: 100%;
+  }
+.mfp-close {
+  display: none;
+  visibility: hidden;
 }
+  .mfp-title{
+    width: 100%;
+    text-align: center;
+    padding-right: 0 !important; /* key: undo reserved space for .mfp-counter */
+    margin: 0 auto;
+        color: var(--ink-body);
+  }
 
-.mfp-title{
-  width: 100%;
-  text-align: center;
-  padding-right: 0 !important; /* key: undo reserved space for .mfp-counter */
-  margin: 0 auto;
-  color:#000000;
-}
-
-/* defensive: no counter in single-image mode */
-.mfp-counter{
-  display: none !important;
-}
+  /* defensive: no counter in single-image mode */
+  .mfp-counter{
+    display: none !important;
+  }
 
   /* Bigger, clearer arrows */
   .mfp-arrow:before, .mfp-arrow:after { border-top-width: 14px; border-bottom-width: 14px; }
@@ -110,6 +112,7 @@
 <!-- Browser UI color (you can later update this dynamically from your theme toggle if you want) -->
 <meta name="theme-color" content="#f2f0ea">
 
+
 </head>
 
 <body class="rf">
@@ -123,7 +126,7 @@
         Strong rules, obvious structure, and confident hierarchy
       </div>
       <a class="rf-logo" href="/">
-        Aero2-TEST
+        Aero2
       </a>
     </div>
   </div>
@@ -157,7 +160,6 @@
 </header>
 
 
-
       <div class="rf-frame">
         <div class="rf-grid">
           <main class="rf-main" id="content">
@@ -179,7 +181,7 @@
               <div class="rf-prose" >
                 <h1 id="aero2">Aero2</h1>
 
-<p>Aero2 is a <strong>design-first</strong> jekyll web theme built around layout, typography, and interaction the way <strong>printed media</strong> and <strong>early web UI</strong> did — with strong rules, obvious structure, and confident hierarchy - while still respecting modern expectations for responsiveness, accessibility, and performance.</p>
+<p>Aero2 is a <strong>design-first</strong> jekyll web theme built around layout, typography, and interaction the way <strong>printed media</strong> and <strong>early web UI</strong> did — with strong rules, obvious structure, and confident hierarchy - while still respecting modern expectations for responsiveness, accessibility, SEO, and performance.</p>
 
 <hr />
 
@@ -188,25 +190,28 @@
 <p>Aero2 avoids features that dilute the design:</p>
 
 <ul>
-  <li>No animation for animation’s sake</li>
+  <li>No animations</li>
   <li>No “component soup”</li>
   <li>No hidden interactions</li>
+  <li>Light and dark mode</li>
 </ul>
 
 <p>If something moves, collapses, or changes state, it does so <strong>clearly and predictably</strong>.</p>
+
+<p>The use of <strong>jQuery is intentional</strong> to align with the theme’s old-web sensibility</p>
 
 <p>This makes the theme easy to extend, easy to read, and hard to break.</p>
 
 <hr />
 
-<h2 id="who-this-theme-is-for">Who this theme is for</h2>
+<h2 id="what-this-theme-is-for">What this theme is for</h2>
 
 <p>Aero2 works best for:</p>
 <ul>
   <li>Writing-heavy sites</li>
   <li>Journals, and documentation</li>
   <li>Projects that value clarity</li>
-  <li>People who want their site to feel <em>designed</em>, not assembled</li>
+  <li>Customizablility as a dual column layout base template.</li>
 </ul>
 
 <hr />
@@ -253,14 +258,17 @@ and to keep working the same way for a long time.</p>
         <article class="rf-card rf-card--post rf-rail-item" data-idx="0">
           <header class="rf-card-head">
             <h3 class="rf-card-title">
-              <a href="/2026/01/01/Second-post/">Second Post</a>
+              <a href="/site/tutorial/2026/01/03/Customize-the-Favicon/">Customize the Favicon</a>
             </h3>
 
             <div class="rf-meta">
-              <time datetime="2026-01-01T00:00:00-07:00">
-                Jan 1, 2026
+              <time datetime="2026-01-03T00:00:00-07:00">
+                Jan 3, 2026
               </time>
 
+              
+                <span class="rf-dot">•</span>
+                <span class="rf-cat">Site</span>
               
             </div>
           </header>
@@ -268,13 +276,13 @@ and to keep working the same way for a long time.</p>
           <div class="rf-card-body rf-card-body--post">
             
 <p class="rf-excerpt">
-  This is your second post.
+  Replace the default favicon with your own.
 </p>
           </div>
 
           <div class="rf-pricebar">
             <div class="rf-price">READ</div>
-            <a class="rf-arrow" href="/2026/01/01/Second-post/" aria-label="Read post"></a>
+            <a class="rf-arrow" href="/site/tutorial/2026/01/03/Customize-the-Favicon/" aria-label="Read post"></a>
           </div>
         </article>
       
@@ -430,7 +438,7 @@ and to keep working the same way for a long time.</p>
       </div>
 
       <footer class="rf-footer">
-  <div>© 2026 Aero2-TEST</div>
+  <div>© 2026 Aero2</div>
   <div class="rf-muted">A design-first Jekyll theme inspired by print layout and early web UI.</div>
 </footer>
 
@@ -440,6 +448,9 @@ and to keep working the same way for a long time.</p>
 
   <!-- Scripts: jQuery MUST load before aero2.js -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 
   <!-- Magnific Popup -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
@@ -496,6 +507,22 @@ and to keep working the same way for a long time.</p>
     });
   })();
   </script>
+
+
+<script>
+$(function () {
+  $(document).tooltip({
+    items: ".rf-tt,[data-tooltip],[title]",
+    content: function () {
+      // Prefer data-tooltip if present, otherwise fall back to title.
+      return $(this).attr("data-tooltip") || $(this).attr("title");
+    },
+    show: { effect: "fadeIn", duration: 500 },
+    hide: { effect: "fadeOut", duration: 500 },
+    track: true
+  });
+});
+</script>
 
   <!-- RF: tag filtering (your existing script; unchanged) -->
   <script>

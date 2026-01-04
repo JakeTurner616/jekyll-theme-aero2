@@ -11,8 +11,7 @@ description: How to get in touch.
   linkedin="https://www.linkedin.com/in/jakob-turner-0912b218b/"
   x="https://x.com/jek92090056"
   image="/assets/img/contact.png"
-  image_alt="A desk photo: notebook, coffee, and terminal window."
+  image_alt="Avatar image"
   image_caption="Desk line — fastest response by email."
-  blurb="Email is best. If you’re linking a bug or a post, include the URL so I can jump right in."
-  note="If you’re reaching out about a specific post, include a link — it helps a lot."
+  note="Feel free to reach out, or leave a respository issue."
 %}

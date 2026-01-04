@@ -4,41 +4,57 @@
     <h2 class="rf-rail-title">{{ include.title | default: "Get in touch" }}</h2>
   </header>
 
-  <section class="rf-contact-hero" aria-label="Contact intro">
-    {% if include.image %}
-      <figure class="rf-contact-media">
-        <a class="rf-gallery" href="{{ include.image | relative_url }}">
-          <img
-            class="rf-contact-img"
-            src="{{ include.image | relative_url }}"
-            alt="{{ include.image_alt | default: 'Contact image' | escape }}"
-            loading="lazy"
-            decoding="async"
-          >
-        </a>
-
-        {% if include.image_caption %}
-          <figcaption class="rf-caption rf-contact-caption">
-            {{ include.image_caption }}
-          </figcaption>
-        {% endif %}
-      </figure>
-    {% endif %}
-
-    <div class="rf-contact-blurb">
-      {% if include.blurb %}
-        <p>{{ include.blurb }}</p>
-      {% else %}
-        <p>Best way to reach me is email — socials are below if that’s easier.</p>
-      {% endif %}
-
-
-    </div>
-  </section>
-
   <div class="rf-contact-grid">
 
+    <!-- Intro / blurb (full-width on desktop) -->
+    
+
+    <!-- Image as a real card (spans 2 rows on desktop) -->
+    <!-- Image as a real card (spans 2 rows on desktop) -->
+{% if include.image %}
+<article class="rf-card rf-contact-card rf-contact-card--image">
+  <header class="rf-card-head">
+    <h3>Website</h3>
+    <div class="rf-cal">Home</div>
+  </header>
+
+  <div class="rf-card-body rf-card-body--post">
+    <figure class="rf-contact-media">
+      <a
+        href="https://serverboi.org"
+        rel="me"
+        aria-label="Visit serverboi.org"
+      >
+        <img
+          class="rf-contact-img"
+          src="{{ include.image | relative_url }}"
+          alt="{{ include.image_alt | default: 'Contact image' | escape }}"
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
+
+      {% if include.image_caption %}
+        <figcaption class="rf-contact-caption">
+          {{ include.image_caption }}
+        </figcaption>
+      {% endif %}
+    </figure>
+  </div>
+
+  <div class="rf-pricebar">
+    <div class="rf-price">OPEN</div>
+    <a
+      class="rf-arrow"
+      href="https://serverboi.org"
+      rel="me"
+      aria-label="Open serverboi.org"
+    ></a>
+  </div>
+</article>
+{% endif %}
     <!-- Email -->
+    {% if include.email %}
     <article class="rf-card rf-contact-card">
       <header class="rf-card-head">
         <h3>Email</h3>
@@ -60,6 +76,7 @@
         ></a>
       </div>
     </article>
+    {% endif %}
 
     <!-- GitHub -->
     {% if include.github %}

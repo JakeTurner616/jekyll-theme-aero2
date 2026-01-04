@@ -4,8 +4,14 @@
    ========================================================= */
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
-body { margin: 0; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper); /* fallback behind rf-bg */
+}
 
 img { max-width: 100%; height: auto; }
 a { color: inherit; }

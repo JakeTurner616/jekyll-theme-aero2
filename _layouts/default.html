@@ -31,7 +31,6 @@
     <div class="rf-shell">
       {% include rf/header.html %}
 
-
       <div class="rf-frame">
         <div class="rf-grid">
           <main class="rf-main" id="content">
@@ -105,6 +104,9 @@
   <!-- Scripts: jQuery MUST load before aero2.js -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+
   <!-- Magnific Popup -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
 
@@ -160,6 +162,22 @@
     });
   })();
   </script>
+
+
+<script>
+$(function () {
+  $(document).tooltip({
+    items: ".rf-tt,[data-tooltip],[title]",
+    content: function () {
+      // Prefer data-tooltip if present, otherwise fall back to title.
+      return $(this).attr("data-tooltip") || $(this).attr("title");
+    },
+    show: { effect: "fadeIn", duration: 500 },
+    hide: { effect: "fadeOut", duration: 500 },
+    track: true
+  });
+});
+</script>
 
   <!-- RF: tag filtering (your existing script; unchanged) -->
   <script>

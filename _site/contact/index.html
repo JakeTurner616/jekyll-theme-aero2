@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Contact | Aero2-TEST</title>
+<title>Contact | Aero2</title>
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Contact" />
 <meta property="og:locale" content="en" />
@@ -13,7 +13,7 @@
 <meta property="og:description" content="How to get in touch." />
 <link rel="canonical" href="http://localhost:4000/contact/" />
 <meta property="og:url" content="http://localhost:4000/contact/" />
-<meta property="og:site_name" content="Aero2-TEST" />
+<meta property="og:site_name" content="Aero2" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Contact" />
@@ -39,9 +39,7 @@
   </script>
 
   <link rel="stylesheet" href="/assets/css/style.css">
-  
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
@@ -65,29 +63,33 @@
 
   /* Paper-ish frame around the image */
   .mfp-figure {
-    background: #fbfaf6;
-    border: 2px solid #121212;
+    background: var(--paper2);
+    border: 2px solid var(--rule);
     padding: 10px;
+
   }
 
-/* TRUE center caption: remove counter-reserve padding and force full width */
-.mfp-bottom-bar{
-  left: 0;
-  width: 100%;
+  /* TRUE center caption: remove counter-reserve padding and force full width */
+  .mfp-bottom-bar{
+    left: 0;
+    width: 100%;
+  }
+.mfp-close {
+  display: none;
+  visibility: hidden;
 }
+  .mfp-title{
+    width: 100%;
+    text-align: center;
+    padding-right: 0 !important; /* key: undo reserved space for .mfp-counter */
+    margin: 0 auto;
+        color: var(--ink-body);
+  }
 
-.mfp-title{
-  width: 100%;
-  text-align: center;
-  padding-right: 0 !important; /* key: undo reserved space for .mfp-counter */
-  margin: 0 auto;
-  color:#000000;
-}
-
-/* defensive: no counter in single-image mode */
-.mfp-counter{
-  display: none !important;
-}
+  /* defensive: no counter in single-image mode */
+  .mfp-counter{
+    display: none !important;
+  }
 
   /* Bigger, clearer arrows */
   .mfp-arrow:before, .mfp-arrow:after { border-top-width: 14px; border-bottom-width: 14px; }
@@ -110,6 +112,7 @@
 <!-- Browser UI color (you can later update this dynamically from your theme toggle if you want) -->
 <meta name="theme-color" content="#f2f0ea">
 
+
 </head>
 
 <body class="rf">
@@ -123,7 +126,7 @@
         Strong rules, obvious structure, and confident hierarchy
       </div>
       <a class="rf-logo" href="/">
-        Aero2-TEST
+        Aero2
       </a>
     </div>
   </div>
@@ -157,7 +160,6 @@
 </header>
 
 
-
       <div class="rf-frame">
         <div class="rf-grid">
           <main class="rf-main" id="content">
@@ -187,33 +189,42 @@
     <h2 class="rf-rail-title">Get in touch</h2>
   </header>
 
-  <section class="rf-contact-hero" aria-label="Contact intro">
-    
-      <figure class="rf-contact-media">
-        <a class="rf-gallery" href="/assets/img/contact.png">
-          <img class="rf-contact-img" src="/assets/img/contact.png" alt="A desk photo: notebook, coffee, and terminal window." loading="lazy" decoding="async" />
-        </a>
-
-        
-          <figcaption class="rf-caption rf-contact-caption">
-            Desk line — fastest response by email.
-          </figcaption>
-        
-      </figure>
-    
-
-    <div class="rf-contact-blurb">
-      
-        <p>Email is best. If you’re linking a bug or a post, include the URL so I can jump right in.</p>
-      
-
-
-    </div>
-  </section>
-
   <div class="rf-contact-grid">
 
+    <!-- Intro / blurb (full-width on desktop) -->
+    
+
+    <!-- Image as a real card (spans 2 rows on desktop) -->
+    <!-- Image as a real card (spans 2 rows on desktop) -->
+
+<article class="rf-card rf-contact-card rf-contact-card--image">
+  <header class="rf-card-head">
+    <h3>Website</h3>
+    <div class="rf-cal">Home</div>
+  </header>
+
+  <div class="rf-card-body rf-card-body--post">
+    <figure class="rf-contact-media">
+      <a href="https://serverboi.org" rel="me" aria-label="Visit serverboi.org">
+        <img class="rf-contact-img" src="/assets/img/contact.png" alt="Avatar image" loading="lazy" decoding="async" />
+      </a>
+
+      
+        <figcaption class="rf-contact-caption">
+          Desk line — fastest response by email.
+        </figcaption>
+      
+    </figure>
+  </div>
+
+  <div class="rf-pricebar">
+    <div class="rf-price">OPEN</div>
+    <a class="rf-arrow" href="https://serverboi.org" rel="me" aria-label="Open serverboi.org"></a>
+  </div>
+</article>
+
     <!-- Email -->
+    
     <article class="rf-card rf-contact-card">
       <header class="rf-card-head">
         <h3>Email</h3>
@@ -231,6 +242,7 @@
         <a class="rf-arrow" href="mailto:jake@serverboi.org" aria-label="Email"></a>
       </div>
     </article>
+    
 
     <!-- GitHub -->
     
@@ -298,7 +310,7 @@
   </div>
 
   
-    <p class="rf-contact-note">If you’re reaching out about a specific post, include a link — it helps a lot.</p>
+    <p class="rf-contact-note">Feel free to reach out, or leave a respository issue.</p>
   
 </section>
 
@@ -340,14 +352,17 @@
         <article class="rf-card rf-card--post rf-rail-item" data-idx="0">
           <header class="rf-card-head">
             <h3 class="rf-card-title">
-              <a href="/2026/01/01/Second-post/">Second Post</a>
+              <a href="/site/tutorial/2026/01/03/Customize-the-Favicon/">Customize the Favicon</a>
             </h3>
 
             <div class="rf-meta">
-              <time datetime="2026-01-01T00:00:00-07:00">
-                Jan 1, 2026
+              <time datetime="2026-01-03T00:00:00-07:00">
+                Jan 3, 2026
               </time>
 
+              
+                <span class="rf-dot">•</span>
+                <span class="rf-cat">Site</span>
               
             </div>
           </header>
@@ -355,13 +370,13 @@
           <div class="rf-card-body rf-card-body--post">
             
 <p class="rf-excerpt">
-  This is your second post.
+  Replace the default favicon with your own.
 </p>
           </div>
 
           <div class="rf-pricebar">
             <div class="rf-price">READ</div>
-            <a class="rf-arrow" href="/2026/01/01/Second-post/" aria-label="Read post"></a>
+            <a class="rf-arrow" href="/site/tutorial/2026/01/03/Customize-the-Favicon/" aria-label="Read post"></a>
           </div>
         </article>
       
@@ -517,7 +532,7 @@
       </div>
 
       <footer class="rf-footer">
-  <div>© 2026 Aero2-TEST</div>
+  <div>© 2026 Aero2</div>
   <div class="rf-muted">A design-first Jekyll theme inspired by print layout and early web UI.</div>
 </footer>
 
@@ -527,6 +542,9 @@
 
   <!-- Scripts: jQuery MUST load before aero2.js -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 
   <!-- Magnific Popup -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
@@ -583,6 +601,22 @@
     });
   })();
   </script>
+
+
+<script>
+$(function () {
+  $(document).tooltip({
+    items: ".rf-tt,[data-tooltip],[title]",
+    content: function () {
+      // Prefer data-tooltip if present, otherwise fall back to title.
+      return $(this).attr("data-tooltip") || $(this).attr("title");
+    },
+    show: { effect: "fadeIn", duration: 500 },
+    hide: { effect: "fadeOut", duration: 500 },
+    track: true
+  });
+});
+</script>
 
   <!-- RF: tag filtering (your existing script; unchanged) -->
   <script>

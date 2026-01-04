@@ -1,0 +1,114 @@
+/* =========================================================
+   jQuery UI Tooltip — Retro Food Theme
+   ========================================================= */
+
+.ui-tooltip {
+  /* Layout */
+  max-width: 320px;
+  padding: 0;
+  border-radius: 6px;
+
+  /* Theme */
+  background: var(--code-bg);
+  color: var(--ink);
+  border: 2px solid var(--rule);
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, .18),
+    inset 0 1px 0 rgba(255, 255, 255, .35);
+
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.4;
+
+  /* Behavior */
+  pointer-events: none;
+
+  /* Fade in/out polish */
+  opacity: 0;
+  transform: translateY(-4px) scale(.98);
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+/* When visible (jQuery UI inserts/removes node) */
+.ui-tooltip:not([aria-hidden="true"]) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Inner content */
+.ui-tooltip-content {
+  padding: 8px 10px 9px;
+}
+
+/* Kicker / label */
+.ui-tooltip-content::before {
+  content: "TIP";
+  display: block;
+  margin-bottom: 4px;
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  color: var(--muted);
+}
+
+/* Dark theme adjustments */
+html[data-theme="dark"] .ui-tooltip {
+  background: var(--code-bg);
+  color: #f2f0ea;
+  border-color: var(--rule);
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, .55),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+/* =========================================================
+   jQuery UI Tooltip — match code blocks exactly
+   ========================================================= */
+
+/* jQuery UI often applies .ui-widget-content styles.
+   This selector beats it without relying on load order. */
+.ui-tooltip.ui-widget.ui-widget-content {
+  background: var(--code-bg) !important;
+  border: 2px solid var(--rule) !important;
+  color: var(--code-ink, var(--ink)) !important;
+
+  border-radius: 6px;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, .18),
+    inset 0 1px 0 rgba(255, 255, 255, .35);
+
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.4;
+
+  pointer-events: none;
+
+  /* optional polish */
+  padding: 0;
+}
+
+/* inner content spacing (jQuery UI puts padding here sometimes) */
+.ui-tooltip.ui-widget.ui-widget-content .ui-tooltip-content {
+  padding: 8px 10px 9px;
+}
+
+/* keep your kicker */
+.ui-tooltip.ui-widget.ui-widget-content .ui-tooltip-content::before {
+  content: "TIP";
+  display: block;
+  margin-bottom: 4px;
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

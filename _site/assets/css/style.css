@@ -14,6 +14,7 @@ html, body {
 
 body {
   margin: 0;
+  background: var(--paper); /* fallback behind rf-bg */
 }
 
 img {
@@ -141,6 +142,10 @@ html[data-theme=light] .rf {
 .rf-bg {
   min-height: 100vh;
   background: radial-gradient(1200px 900px at 20% 15%, var(--tex-a), transparent 55%), radial-gradient(900px 700px at 80% 30%, var(--tex-b), transparent 55%), repeating-linear-gradient(0deg, var(--tex-c) 0 1px, transparent 1px 6px), radial-gradient(circle at 20% 30%, var(--tex-d) 0 1px, transparent 2px), radial-gradient(circle at 70% 60%, var(--tex-e) 0 1px, transparent 2px), var(--paper);
+  /* key: avoid seams + ensure full coverage */
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-size: auto;
   padding: 28px 14px 60px;
 }
 
@@ -801,11 +806,6 @@ html[data-theme=light] .rf {
   flex: 0 0 auto;
 }
 
-.rf-side-stack .rf-toc {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
 /* =========================================================
    Sidebar stack scroll safety (TOC scrolls under zoom)
    ========================================================= */
@@ -815,17 +815,30 @@ html[data-theme=light] .rf {
   max-height: calc(100dvh - 32px);
 }
 
+@supports (overflow: clip) {
+  .rf-toc-list {
+    scrollbar-gutter: auto;
+  }
+}
 .rf-side-stack {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  height: 100%;
   min-height: 0;
+  height: 100%;
 }
 
+.rf-rail--latest {
+  flex: 0 0 auto;
+}
+
+/* KEY CHANGE:
+   TOC should NOT flex-grow (looks bad when short).
+   Let it size to content, but cap it so long TOCs scroll.
+*/
 .rf-side-stack .rf-toc {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
+  max-height: clamp(160px, 38dvh, 520px);
 }
 
 /* =========================================================
@@ -1274,61 +1287,95 @@ html[data-theme=light] .rf {
 
 /* _sass/retrofood/_contact.scss */
 /* =========================================================
-   Contact (content-first, image optional)
+   Contact (cards-first, image as a real card)
    ========================================================= */
 .rf-contact-head {
   margin-bottom: 12px;
 }
 
-.rf-contact-hero {
-  margin: 0 0 12px;
-  padding: 12px;
-  border: 2px solid var(--rule);
-  background: var(--paper2);
+/* =========================================================
+   Contact grid (cards)
+   ========================================================= */
+.rf-contact-grid {
   display: grid;
   gap: 12px;
-  align-items: start;
 }
 
-/* Only become two-column when an image exists and screen is wide */
+/* Desktop: 2-column card grid */
 @media (min-width: 860px) {
-  .rf-contact-hero {
-    grid-template-columns: 220px minmax(0, 1fr);
-  }
-  .rf-contact-hero:not(:has(.rf-contact-media)) {
-    grid-template-columns: 1fr;
+  .rf-contact-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
   }
 }
-/* Media block */
+/* Card body baseline: don't force tall cards */
+.rf-contact-card .rf-card-body {
+  min-height: auto;
+  display: block;
+}
+
+/* Intro card (blurb) can span full width on desktop */
+@media (min-width: 860px) {
+  .rf-contact-card--intro {
+    grid-column: 1/-1;
+  }
+}
+/* Image card becomes “two cards” on desktop */
+@media (min-width: 860px) {
+  .rf-contact-card--image {
+    grid-row: span 2;
+  }
+}
+/* =========================================================
+   Image / avatar card internals
+   ========================================================= */
+/* Stable avatar sizing variable */
+.rf-contact-card--image {
+  --avatar: clamp(150px, 18vw, 220px);
+}
+
 .rf-contact-media {
   margin: 0;
-  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
 }
 
+/* Reserve space BEFORE image loads (prevents layout shift) */
+.rf-contact-card--image .rf-contact-media > a {
+  display: block;
+  width: var(--avatar);
+  aspect-ratio: 1/1;
+}
+
+/* Avatar image fills the reserved square */
 .rf-contact-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  aspect-ratio: 1/1;
   border: 2px solid var(--rule);
-  border-radius: 14px;
-  background: #fff;
+  border-radius: 50%;
+  background: var(--paper2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 0 rgba(0, 0, 0, 0.06);
 }
 
-/* Caption: stable, centered */
+/* Caption styling */
 .rf-contact-caption {
-  margin: 8px auto 0;
-  max-width: 52ch;
+  margin: 0;
+  max-width: 40ch;
   text-align: center;
   font-size: 12px;
   line-height: 1.35;
   color: var(--ink-soft);
 }
 
-/* Blurb */
-.rf-contact-blurb {
-  min-width: 0;
-}
-
+/* =========================================================
+   Blurb / text styles
+   ========================================================= */
 .rf-contact-blurb p {
   margin: 0 0 10px;
   max-width: 72ch;
@@ -1347,7 +1394,7 @@ html[data-theme=light] .rf {
   flex-wrap: wrap;
   gap: 10px;
   align-items: baseline;
-  margin: 0;
+  margin: 10px 0 0;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -1369,33 +1416,7 @@ html[data-theme=light] .rf {
   word-break: break-word;
 }
 
-/* =========================================================
-   Contact grid (cards)
-   ========================================================= */
-.rf-contact-grid {
-  display: grid;
-  gap: 12px;
-}
-
-@media (min-width: 860px) {
-  .rf-contact-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.rf-contact-card .rf-card-body {
-  min-height: auto;
-  display: block;
-}
-
-.rf-contact-line {
-  margin: 10px 0 0;
-  font-family: var(--font-mono);
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
+/* Shared link styling */
 .rf-contact-link {
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -1410,7 +1431,9 @@ html[data-theme=light] .rf {
   font-style: italic;
 }
 
-/* Contact page only: hide the generic posthead chrome */
+/* =========================================================
+   Contact page only
+   ========================================================= */
 .page-contact .rf-posthead,
 .page-contact .rf-description {
   display: none;
@@ -1599,6 +1622,99 @@ html[data-theme=light] .rf {
 
 .rf-tagchip.is-active {
   background: var(--accent);
+}
+
+/* =========================================================
+   jQuery UI Tooltip — Retro Food Theme
+   ========================================================= */
+.ui-tooltip {
+  /* Layout */
+  max-width: 320px;
+  padding: 0;
+  border-radius: 6px;
+  /* Theme */
+  background: var(--code-bg);
+  color: var(--ink);
+  border: 2px solid var(--rule);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.4;
+  /* Behavior */
+  pointer-events: none;
+  /* Fade in/out polish */
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* When visible (jQuery UI inserts/removes node) */
+.ui-tooltip:not([aria-hidden=true]) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Inner content */
+.ui-tooltip-content {
+  padding: 8px 10px 9px;
+}
+
+/* Kicker / label */
+.ui-tooltip-content::before {
+  content: "TIP";
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Dark theme adjustments */
+html[data-theme=dark] .ui-tooltip {
+  background: var(--code-bg);
+  color: #f2f0ea;
+  border-color: var(--rule);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   jQuery UI Tooltip — match code blocks exactly
+   ========================================================= */
+/* jQuery UI often applies .ui-widget-content styles.
+   This selector beats it without relying on load order. */
+.ui-tooltip.ui-widget.ui-widget-content {
+  background: var(--code-bg) !important;
+  border: 2px solid var(--rule) !important;
+  color: var(--code-ink, var(--ink)) !important;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.4;
+  pointer-events: none;
+  /* optional polish */
+  padding: 0;
+}
+
+/* inner content spacing (jQuery UI puts padding here sometimes) */
+.ui-tooltip.ui-widget.ui-widget-content .ui-tooltip-content {
+  padding: 8px 10px 9px;
+}
+
+/* keep your kicker */
+.ui-tooltip.ui-widget.ui-widget-content .ui-tooltip-content::before {
+  content: "TIP";
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /*# sourceMappingURL=style.css.map */

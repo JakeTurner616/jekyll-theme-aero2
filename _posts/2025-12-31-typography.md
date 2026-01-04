@@ -99,6 +99,12 @@ Use text tooltips to emphasize information
 > Deleting `_site` is safe, but deleting your source files isn’t.
 {: .alert .alert-danger}
 
+## Hover tooltips
+
+<span class="rf-tt" data-tooltip="Hello tooltip">hover me</span>
+
+
+
 ## Math
 
 `math: true` must be set in the page front matter to enable math.

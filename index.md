@@ -5,7 +5,7 @@ title: Home
 
 # Aero2
 
-Aero2 is a **design-first** jekyll web theme built around layout, typography, and interaction the way **printed media** and **early web UI** did — with strong rules, obvious structure, and confident hierarchy - while still respecting modern expectations for responsiveness, accessibility, and performance.
+Aero2 is a **design-first** jekyll web theme built around layout, typography, and interaction the way **printed media** and **early web UI** did — with strong rules, obvious structure, and confident hierarchy - while still respecting modern expectations for responsiveness, accessibility, SEO, and performance.
 
 ---
 
@@ -13,23 +13,27 @@ Aero2 is a **design-first** jekyll web theme built around layout, typography, an
 
 Aero2 avoids features that dilute the design:
 
-- No animation for animation’s sake
-- No “component soup”
-- No hidden interactions
+- No animations
+- No “component soup”  
+- No hidden interactions  
+- Light and dark mode
+
 
 If something moves, collapses, or changes state, it does so **clearly and predictably**.
+
+The use of **jQuery is intentional** to align with the theme’s old-web sensibility
 
 This makes the theme easy to extend, easy to read, and hard to break.
 
 ---
 
-## Who this theme is for
+## What this theme is for
 
 Aero2 works best for:
 - Writing-heavy sites
 - Journals, and documentation
 - Projects that value clarity
-- People who want their site to feel *designed*, not assembled
+- Customizablility as a dual column layout base template.
 
 ---
 
