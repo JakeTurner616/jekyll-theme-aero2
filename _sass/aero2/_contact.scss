@@ -3,7 +3,9 @@
    Contact (cards-first, image as a real card)
    ========================================================= */
 
-.rf-contact-head { margin-bottom: 12px; }
+.rf-contact-head {
+  margin-bottom: 12px;
+}
 
 /* =========================================================
    Contact grid (cards)
@@ -12,6 +14,9 @@
 .rf-contact-grid {
   display: grid;
   gap: 12px;
+
+  /* Mobile-first */
+  grid-template-columns: 1fr;
 }
 
 /* Desktop: 2-column card grid */
@@ -22,35 +27,56 @@
   }
 }
 
-/* Card body baseline: don't force tall cards */
+/* =========================================================
+   Card internal stability (matches recent-post cards)
+   ========================================================= */
+
+.rf-contact-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Let content grow naturally */
 .rf-contact-card .rf-card-body {
   min-height: auto;
   display: block;
+  flex: 1 1 auto;
 }
 
-/* Intro card (blurb) can span full width on desktop */
+/* Keep footer visually attached */
+.rf-contact-card .rf-pricebar {
+  margin-top: auto;
+}
+
+/* =========================================================
+   Special layout rules
+   ========================================================= */
+
+/* Intro card spans full width on desktop */
 @media (min-width: 860px) {
   .rf-contact-card--intro {
     grid-column: 1 / -1;
   }
 }
 
-/* Image card becomes “two cards” on desktop */
-@media (min-width: 860px) {
+/* Image card spans two rows ONLY when layout is roomy */
+@media (min-width: 980px) {
   .rf-contact-card--image {
     grid-row: span 2;
   }
 }
 
 /* =========================================================
-   Image / avatar card internals
+   Image / avatar card internals (FIXED + CENTERED)
    ========================================================= */
 
-/* Stable avatar sizing variable */
+/* Stable avatar size */
 .rf-contact-card--image {
   --avatar: clamp(150px, 18vw, 220px);
 }
 
+/* Center media block */
 .rf-contact-media {
   margin: 0;
   display: grid;
@@ -60,29 +86,35 @@
   text-align: center;
 }
 
-/* Reserve space BEFORE image loads (prevents layout shift) */
+/* The frame owns size, shape, and border */
 .rf-contact-card--image .rf-contact-media > a {
   display: block;
-  width: var(--avatar);
-  aspect-ratio: 1 / 1;
-}
 
-/* Avatar image fills the reserved square */
-.rf-contact-img {
-  width: 100%;
-  height: 100%;
-  display: block;
-
-  object-fit: cover;
   aspect-ratio: 1 / 1;
 
   border: 2px solid var(--rule);
   border-radius: 50%;
   background: var(--paper2);
 
+  overflow: hidden;
+
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.35),
     0 1px 0 rgba(0,0,0,.06);
+}
+
+/* Image purely fills the frame */
+.rf-contact-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: 50% 50%;
+
+  border: 0;
+  border-radius: 0;
+  aspect-ratio: auto;
 }
 
 /* Caption styling */
@@ -106,7 +138,10 @@
   font-size: 15px;
   line-height: 1.55;
 }
-.rf-contact-blurb p:last-child { margin-bottom: 0; }
+
+.rf-contact-blurb p:last-child {
+  margin-bottom: 0;
+}
 
 /* Inline primary contact line */
 .rf-contact-primary {
@@ -160,4 +195,49 @@
 .page-contact .rf-description {
   display: none;
   visibility: hidden;
+}
+/* Ensure grid items can stretch and cards can fill that height */
+@media (min-width: 860px) {
+  .rf-contact-grid {
+    align-items: stretch;
+  }
+}
+
+/* Card must be able to fill row height */
+.rf-card.rf-contact-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* IMPORTANT: .rf-card-body--post is defined elsewhere; re-assert flex growth here */
+.rf-card.rf-contact-card > .rf-card-body.rf-card-body--post,
+.rf-card.rf-contact-card > .rf-card-body {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Footer always sits at the bottom of the card */
+.rf-card.rf-contact-card > .rf-pricebar {
+  margin-top: auto;
+}
+
+/* Better center the avatar block inside the card body */
+.rf-contact-card--image > .rf-card-body.rf-card-body--post {
+  /* behave like a centered card stage */
+  display: grid;
+  place-items: center;
+  text-align: center;
+
+  /* give it breathing room and prevent caption from pushing awkwardly */
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* Keep the figure nicely centered and prevent caption from stretching layout */
+.rf-contact-card--image .rf-contact-media {
+  width: 100%;
+  max-width: 42ch;
+  justify-items: center;
 }
