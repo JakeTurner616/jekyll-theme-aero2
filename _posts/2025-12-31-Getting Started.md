@@ -11,8 +11,8 @@ tags: [getting started, docs]
 ## Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_NAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/JakeTurner616/jekyll-theme-aero2
+cd jekyll-theme-aero2
 ```
 
 ---

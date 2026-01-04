@@ -4,6 +4,7 @@ permalink: /comments/
 description: Add fast, privacy-friendly comments to your site using GitHub Discussions.
 sidebar_show_tags: false
 comments: false
+author: Jake Turner
 ---
 
 Giscus is a lightweight, open-source comment system powered by **GitHub Discussions**.  
@@ -16,7 +17,7 @@ If your site is hosted on GitHub Pages, this is the cleanest comment solution av
 ## What you need
 ---
 
-## 1) Enable GitHub Discussions
+## Enable GitHub Discussions
 
 1. Open your repository on GitHub
 2. Go to **Settings → General**
@@ -27,7 +28,7 @@ Once enabled, GitHub will create a **Discussions** tab.
 
 ---
 
-## 2) Install the Giscus GitHub app
+## Install the Giscus GitHub app
 
 Giscus needs permission to create and manage discussion threads.
 
@@ -40,7 +41,7 @@ Giscus needs permission to create and manage discussion threads.
 
 ---
 
-## 3) Create a discussion category
+## Create a discussion category
 
 Inside your repository:
 
@@ -55,7 +56,7 @@ This category will store all comment threads created by your site.
 
 ---
 
-## 4) Generate your Giscus configuration
+## Generate your Giscus configuration
 
 Go to the official setup page:
 
@@ -83,7 +84,7 @@ Once filled out, the page will generate a `<script>` tag.
 
 ---
 
-## 5) Copy values into `_config.yml`
+## Copy values into `_config.yml`
 
 Instead of pasting the script directly into your layout, this theme pulls **all Giscus configuration from `_config.yml`**.
 
@@ -153,26 +154,17 @@ No guessing required.
 
 Comments are **opt-in**.
 
-Add this to any post front matter:
+Add this to any post/page front matter:
 
 ```yml
 comments: true
 ```
 
-The theme automatically renders Giscus at the bottom of posts when this flag is present.
-
-To explicitly disable comments:
-
-```yml
-comments: false
-```
+The theme automatically renders Giscus at the bottom of the page when this flag is present.
 
 ---
 
 ## Theme + dark mode support
-
-This theme initializes light/dark mode **before first paint**.
-Because of that, Giscus loads in the correct theme immediately — no flash.
 
 Recommended setting:
 
@@ -180,11 +172,7 @@ Recommended setting:
 theme: "preferred_color_scheme"
 ```
 
-This follows:
-
-* Light mode
-* Dark mode
-* System preference
+This follows light mode / dark mode system preference
 
 ---
 

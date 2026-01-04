@@ -4,10 +4,10 @@ Gem::Specification.new do |spec|
   spec.name          = "jekyll-theme-aero2"
   spec.version       = "0.1.0"
   spec.authors       = ["Jake Turner"]
-  spec.email         = ["open-source@example.com"]
+  spec.email         = ["jake@serverboi.org"]
 
   spec.summary       = "A clean starter Jekyll theme"
-  spec.homepage      = "https://github.com/yourname/jekyll-theme-aero2"
+  spec.homepage      = "https://github.com/JakeTurner616/jekyll-theme-aero2"
   spec.license       = "MIT"
 
   spec.require_paths = ["lib"]
