@@ -40,64 +40,70 @@
   </script>
 
   <script>
-  (() => {
-    // If the configured theme is NOT a URL/pair, don't try to postMessage override.
-    // (Built-in themes like "light" / "dark" / "preferred_color_scheme" should be left alone.)
-    const configured = {{ giscus_theme | jsonify }};
-    const looksLikeUrl = (s) => /^(https?:\/\/|\/)/.test(s) || s.includes(".css");
-    if (!looksLikeUrl(configured)) return;
+(() => {
+  const configured = {{ giscus_theme | jsonify }};
 
-    // Convert configured theme string into a { light, dark } pair.
-    // Supports:
-    // - "/assets/x-light.css,/assets/x-dark.css"
-    // - "https://.../light.css,https://.../dark.css"
-    // - "/assets/x.css" (single) -> use for both
-    // - "x.css" (single relative) -> treat as site-relative
-    const toAbs = (p) => {
-      if (!p) return "";
-      if (/^https?:\/\//.test(p)) return p;
-      if (p.startsWith("/")) return window.location.origin + p;
-      // e.g. "assets/giscus/aero2.css"
-      return window.location.origin + "/" + p.replace(/^\.?\//, "");
-    };
+  const looksLikeUrl = (s) => /^(https?:\/\/|\/)/.test(s) || s.includes(".css");
+  if (!looksLikeUrl(configured)) return;
 
-    const parts = String(configured).split(",").map(s => s.trim()).filter(Boolean);
-    const light = toAbs(parts[0] || "");
-    const dark  = toAbs(parts[1] || parts[0] || "");
+  // GitHub Pages project sites live under /REPO, so we must include baseurl.
+  // This evaluates to "" locally (usually) and "/REPO" on GitHub Pages.
+  const BASEURL = {{ site.baseurl | jsonify }} || "";
 
-    if (!light) return;
+  const join = (a, b) => {
+    const left = String(a || "").replace(/\/+$/, "");
+    const right = String(b || "").replace(/^\/+/, "");
+    return left ? `${left}/${right}` : `/${right}`;
+  };
 
-    const currentMode = () => {
-      const v = (document.documentElement.dataset.theme || "").toLowerCase();
-      return v === "dark" ? "dark" : "light";
-    };
+  const toAbs = (p) => {
+    if (!p) return "";
+    p = String(p).trim();
 
-    const desiredThemeUrl = () => (currentMode() === "dark" ? (dark || light) : light);
+    // Already absolute
+    if (/^https?:\/\//i.test(p)) return p;
 
-    const postTheme = () => {
-      const iframe = document.querySelector("iframe.giscus-frame");
-      if (!iframe) return false;
+    // Site-root path (e.g. "/assets/...") -> origin + baseurl + path
+    if (p.startsWith("/")) return window.location.origin + join(BASEURL, p);
 
-      iframe.contentWindow.postMessage(
-        { giscus: { setConfig: { theme: desiredThemeUrl() } } },
-        "https://giscus.app"
-      );
-      return true;
-    };
+    // Relative path (e.g. "assets/..." or "./assets/...") -> origin + baseurl + "/" + path
+    return window.location.origin + join(BASEURL, "/" + p.replace(/^\.?\//, ""));
+  };
 
-    // Try a few times after load since the iframe appears async
-    let tries = 0;
-    const tick = () => {
-      const ok = postTheme();
-      if (ok) return;
-      if (++tries > 40) return; // ~4s
-      setTimeout(tick, 100);
-    };
-    tick();
+  const parts = String(configured).split(",").map(s => s.trim()).filter(Boolean);
+  const light = toAbs(parts[0] || "");
+  const dark  = toAbs(parts[1] || parts[0] || "");
 
-    // React to your theme toggle (dataset changes)
-    const mo = new MutationObserver(() => { postTheme(); });
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  })();
-  </script>
+  if (!light) return;
+
+  const currentMode = () => {
+    const v = (document.documentElement.dataset.theme || "").toLowerCase();
+    return v === "dark" ? "dark" : "light";
+  };
+
+  const desiredThemeUrl = () => (currentMode() === "dark" ? (dark || light) : light);
+
+  const postTheme = () => {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return false;
+
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: desiredThemeUrl() } } },
+      "https://giscus.app"
+    );
+    return true;
+  };
+
+  let tries = 0;
+  const tick = () => {
+    if (postTheme()) return;
+    if (++tries > 40) return;
+    setTimeout(tick, 100);
+  };
+  tick();
+
+  const mo = new MutationObserver(() => { postTheme(); });
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
 {% endif %}

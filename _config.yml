@@ -72,6 +72,7 @@ giscus:
   category: "Comments"
   category_id: "DIC_kwDOQyTIHs4C0jRZ"
   mapping: "og:title"
+  theme: "/assets/giscus/aero2-light.css,/assets/giscus/aero2-dark.css"
   reactions_enabled: "1"
   emit_metadata: "0"
   input_position: "top"
